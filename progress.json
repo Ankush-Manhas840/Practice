@@ -1,0 +1,81 @@
+{
+  "_comment": "Source of truth for DSA practice tracking. Claude reads/updates this file to generate daily sets and apply spaced repetition. Do not hand-edit unless you know what you're doing.",
+  "review_intervals_days": [1, 3, 7, 14, 30, 60],
+  "topics": [
+    "arrays-hashing",
+    "two-pointers",
+    "sliding-window",
+    "stack",
+    "queue",
+    "binary-search",
+    "linked-list",
+    "trees",
+    "binary-search-tree",
+    "heap-priority-queue",
+    "backtracking",
+    "trie",
+    "graphs-bfs-dfs",
+    "graphs-advanced",
+    "dynamic-programming-1d",
+    "dynamic-programming-2d",
+    "greedy",
+    "intervals",
+    "math-geometry",
+    "bit-manipulation",
+    "union-find"
+  ],
+  "questions": [
+    {
+      "id": "two-sum",
+      "title": "Two Sum",
+      "topic": "arrays-hashing",
+      "difficulty": "Easy",
+      "first_attempted": null,
+      "status": "new",
+      "interval_index": 0,
+      "times_reviewed": 0,
+      "last_reviewed": null,
+      "next_review": null,
+      "solution_file": "solutions/arrays-hashing/two-sum.py"
+    },
+    {
+      "id": "valid-palindrome",
+      "title": "Valid Palindrome",
+      "topic": "two-pointers",
+      "difficulty": "Easy",
+      "first_attempted": null,
+      "status": "new",
+      "interval_index": 0,
+      "times_reviewed": 0,
+      "last_reviewed": null,
+      "next_review": null,
+      "solution_file": "solutions/two-pointers/valid-palindrome.py"
+    },
+    {
+      "id": "valid-parentheses",
+      "title": "Valid Parentheses",
+      "topic": "stack",
+      "difficulty": "Easy",
+      "first_attempted": null,
+      "status": "new",
+      "interval_index": 0,
+      "times_reviewed": 0,
+      "last_reviewed": null,
+      "next_review": null,
+      "solution_file": "solutions/stack/valid-parentheses.py"
+    },
+    {
+      "id": "binary-search",
+      "title": "Binary Search",
+      "topic": "binary-search",
+      "difficulty": "Easy",
+      "first_attempted": null,
+      "status": "new",
+      "interval_index": 0,
+      "times_reviewed": 0,
+      "last_reviewed": null,
+      "next_review": null,
+      "solution_file": "solutions/binary-search/binary-search.py"
+    }
+  ]
+}
