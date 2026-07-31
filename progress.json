@@ -23,7 +23,8 @@
     "intervals",
     "math-geometry",
     "bit-manipulation",
-    "union-find"
+    "union-find",
+    "recursion"
   ],
   "questions": [
     { "id": "pattern-solid-square", "title": "Solid Square of Stars", "topic": "pattern-printing", "difficulty": "Easy", "first_attempted": "2026-07-27", "status": "solved", "interval_index": 1, "times_reviewed": 1, "last_reviewed": "2026-07-27", "next_review": "2026-07-30", "solution_file": "solutions/pattern-printing/patterns-batch-1.py" },
@@ -58,6 +59,7 @@
     { "id": "gcd-via-common-divisors", "title": "GCD via Common Divisors", "topic": "math-geometry", "difficulty": "Easy", "first_attempted": "2026-07-30", "status": "solved", "interval_index": 0, "times_reviewed": 1, "last_reviewed": "2026-07-30", "next_review": "2026-07-31", "solution_file": "solutions/math-geometry/gcd-via-common-divisors.py" },
     { "id": "armstrong-number", "title": "Armstrong Number", "topic": "math-geometry", "difficulty": "Easy", "first_attempted": "2026-07-30", "status": "solved", "interval_index": 0, "times_reviewed": 1, "last_reviewed": "2026-07-30", "next_review": "2026-07-31", "solution_file": "solutions/math-geometry/armstrong-number.py" },
     { "id": "find-divisors", "title": "Find All Divisors of a Number", "topic": "math-geometry", "difficulty": "Easy", "first_attempted": "2026-07-30", "status": "solved", "interval_index": 0, "times_reviewed": 1, "last_reviewed": "2026-07-30", "next_review": "2026-07-31", "solution_file": "solutions/math-geometry/find-divisors.py" },
-    { "id": "prime-check", "title": "Prime Number Check", "topic": "math-geometry", "difficulty": "Easy", "first_attempted": "2026-07-30", "status": "solved", "interval_index": 0, "times_reviewed": 1, "last_reviewed": "2026-07-30", "next_review": "2026-07-31", "solution_file": "solutions/math-geometry/prime-check.py" }
+    { "id": "prime-check", "title": "Prime Number Check", "topic": "math-geometry", "difficulty": "Easy", "first_attempted": "2026-07-30", "status": "solved", "interval_index": 0, "times_reviewed": 1, "last_reviewed": "2026-07-30", "next_review": "2026-07-31", "solution_file": "solutions/math-geometry/prime-check.py" },
+    { "id": "factorial-with-raise", "title": "Factorial (Recursive, Raises on Negative Input)", "topic": "recursion", "difficulty": "Easy", "first_attempted": "2026-07-30", "status": "solved", "interval_index": 0, "times_reviewed": 1, "last_reviewed": "2026-07-30", "next_review": "2026-07-31", "solution_file": "solutions/recursion/factorial-with-raise.py" }
   ]
 }
