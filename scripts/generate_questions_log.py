@@ -44,7 +44,7 @@ def load_solved_questions():
     data = json.loads(PROGRESS_JSON.read_text())
     solved = [
         q for q in data["questions"]
-        if q.get("status") == "solved" and q.get("first_attempted")
+        if q.get("status") in ("solved", "struggled") and q.get("first_attempted")
     ]
     solved.sort(key=lambda q: (q["first_attempted"], q["topic"]))
     return solved, data
