@@ -83,7 +83,8 @@ Use it when you can test "does value `x` work?" and the answers flip exactly onc
 Details worth remembering:
 - Ceiling division: `(a + b - 1) // b` or `-(-a // b)`.
 - Ship: the lower bound is `max(weights)` because one package must fit; the upper bound is the total.
-- Allocate pages and [Split Array Largest Sum](../solutions/binary-search/split-array-largest-sum.py) are the same "split an array into k contiguous groups and minimise the largest group sum" problem as Ship, with the same bounds. Once you spot this shape, all three are one solution with different names. Return -1 when `k > n`, since every student needs a book. Counting groups with `<= k` is fine: if you can do it with fewer groups you can always split further.
+- Allocate pages, [Split Array Largest Sum](../solutions/binary-search/split-array-largest-sum.py) and [Painter's Partition](../solutions/binary-search/painters-partition.py) are the same "split an array into k contiguous groups and minimise the largest group sum" problem as Ship, with the same bounds. Once you spot this shape, all four are one solution with different names.
+- Painter's Partition with more painters than boards: the extra painters stay idle, so the answer is `max(arr)`. The search handles this without a special case because counting groups with `<= k` always succeeds at `max(arr)`. Return -1 when `k > n`, since every student needs a book. Counting groups with `<= k` is fine: if you can do it with fewer groups you can always split further.
 - Bouquets: return -1 up front when `m * k > n`. Reset the streak when a flower isn't ready AND after forming a bouquet.
 - Cows: sort first; place greedily at the first stall at least `mid` away from the last cow.
 - Koko has an unused `test = piles[:]` copy inside the loop, which is wasted work each iteration.
