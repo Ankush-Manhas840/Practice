@@ -74,6 +74,7 @@ Use it when you can test "does value `x` work?" and the answers flip exactly onc
 | [Koko eating bananas](../solutions/binary-search/koko-eating-bananas.py) | 1 .. max(piles) | hours needed at speed x <= h |
 | [Ship within D days](../solutions/binary-search/ship-within-days.py) | max(weights) .. sum(weights) | days needed with capacity x <= D |
 | [Min days for bouquets](../solutions/binary-search/minimum-days-to-make-bouquets.py) | 1 .. max(bloomDay) | bouquets possible on day x >= m |
+| [Allocate minimum pages](../solutions/binary-search/allocate-minimum-pages.py) | max(arr) .. sum(arr) | students needed when nobody reads more than x pages <= k |
 | [Smallest divisor](../solutions/binary-search/smallest-divisor-threshold.py) | 1 .. max(nums) | sum of ceil(n / x) <= threshold |
 | [Aggressive cows](../solutions/binary-search/aggressive-cows.py) (maximise) | 1 .. max - min | cows placeable with gap >= x is >= k |
 | [Integer sqrt](../solutions/binary-search/sqrt-integer.py) (maximise) | 0 .. x | mid * mid <= x |
@@ -82,6 +83,7 @@ Use it when you can test "does value `x` work?" and the answers flip exactly onc
 Details worth remembering:
 - Ceiling division: `(a + b - 1) // b` or `-(-a // b)`.
 - Ship: the lower bound is `max(weights)` because one package must fit; the upper bound is the total.
+- Allocate pages is the same "split an array into k contiguous groups and minimise the largest group sum" problem as Ship, with the same bounds. Return -1 when `k > n`, since every student needs a book. Counting groups with `<= k` is fine: if you can do it with fewer groups you can always split further.
 - Bouquets: return -1 up front when `m * k > n`. Reset the streak when a flower isn't ready AND after forming a bouquet.
 - Cows: sort first; place greedily at the first stall at least `mid` away from the last cow.
 - Koko has an unused `test = piles[:]` copy inside the loop, which is wasted work each iteration.
