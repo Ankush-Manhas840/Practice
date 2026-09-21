@@ -77,6 +77,7 @@ Use it when you can test "does value `x` work?" and the answers flip exactly onc
 | [Allocate minimum pages](../solutions/binary-search/allocate-minimum-pages.py) | max(arr) .. sum(arr) | students needed when nobody reads more than x pages <= k |
 | [Smallest divisor](../solutions/binary-search/smallest-divisor-threshold.py) | 1 .. max(nums) | sum of ceil(n / x) <= threshold |
 | [Aggressive cows](../solutions/binary-search/aggressive-cows.py) (maximise) | 1 .. max - min | cows placeable with gap >= x is >= k |
+| [Gas station min-max distance](../solutions/binary-search/gas-station-min-max-distance.py) (real numbers) | 0 .. max(stations) | new stations needed at max gap x, sum of `ceil(gap / x) - 1`, is <= k |
 | [Integer sqrt](../solutions/binary-search/sqrt-integer.py) (maximise) | 0 .. x | mid * mid <= x |
 | [Nth root](../solutions/binary-search/nth-root.py) | 0 .. m | mid ** n vs m; -1 if never equal |
 
@@ -88,4 +89,6 @@ Details worth remembering:
 - Bouquets: return -1 up front when `m * k > n`. Reset the streak when a flower isn't ready AND after forming a bouquet.
 - Cows: sort first; place greedily at the first stall at least `mid` away from the last cow.
 - Koko has an unused `test = piles[:]` copy inside the loop, which is wasted work each iteration.
+- Answer is a real number (gas station): you can't step by `mid +/- 1`. Loop `while high - low > 1e-6`, and set `high = mid` when feasible, `low = mid` otherwise. The result is only accurate to that tolerance, so compare with a tolerance, not `==`.
+- Gas station: the current version assumes station positions are strictly increasing. A repeated position gives a zero gap, and `ceil(0 / mid) - 1 = -1` lowers the count; `[1,1,5]` with k=1 returns about 1.33 instead of 2. Clamp each gap's contribution at 0 (`max(0, ...)`).
 - sqrt / nth root: Python integers don't overflow; in Java/C++ use `long` and compare `mid <= x / mid`.
