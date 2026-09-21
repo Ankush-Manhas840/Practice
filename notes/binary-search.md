@@ -60,6 +60,11 @@ while low <= high:
 - When `k` is smaller than the missing count before the first element, `high` ends at -1 and `arr[high]` reads the last element through Python's negative indexing. It cancels out algebraically and stays correct, but it would be out of bounds in Java or C++.
 - The brute force is correct but `start not in arr` scans a list every time, so it is O(n·(n+k)).
 
+**Median of two sorted arrays** — [median-of-two-sorted-arrays.py](../solutions/binary-search/median-of-two-sorted-arrays.py)
+- The repo version walks both arrays like a merge until it reaches the middle: O(n + m), and no binary search.
+- **Re-test:** it breaks when the arrays share a value on the middle positions. The "equal" branch counts two steps at once and overwrites `prev`, so `[1,3]` and `[2,3]` gives 3.0 instead of 2.5. Simply taking one element per step fixes it.
+- The O(log(min(n, m))) version is the one to learn: binary search the cut position `i` in the smaller array, which fixes the cut `j = (n + m + 1) // 2 - i` in the other. A cut is valid when `maxLeftA <= minRightB` and `maxLeftB <= minRightA` (use -inf / +inf past the ends). Odd total: the median is `max(maxLeftA, maxLeftB)`; even total: the average of that and `min(minRightA, minRightB)`.
+
 ## Binary search on the answer
 
 Use it when you can test "does value `x` work?" and the answers flip exactly once as `x` grows.
