@@ -62,7 +62,7 @@ while low <= high:
 
 **Median of two sorted arrays** — [median-of-two-sorted-arrays.py](../solutions/binary-search/median-of-two-sorted-arrays.py)
 - The repo version walks both arrays like a merge until it reaches the middle: O(n + m), and no binary search.
-- **Re-test:** it breaks when the arrays share a value on the middle positions. The "equal" branch counts two steps at once and overwrites `prev`, so `[1,3]` and `[2,3]` gives 3.0 instead of 2.5. Simply taking one element per step fixes it.
+- Fixed on 2026-09-21. The first version had an "equal" branch that counted two steps at once and overwrote `prev`, so `[1,3]` and `[2,3]` gave 3.0 instead of 2.5. Now equal values count as one ordinary step: take one element and advance only that pointer, and the equal element in the other array is picked up on the next step. Lesson: in a merge, a tie is not a special case.
 - The O(log(min(n, m))) version is the one to learn: binary search the cut position `i` in the smaller array, which fixes the cut `j = (n + m + 1) // 2 - i` in the other. A cut is valid when `maxLeftA <= minRightB` and `maxLeftB <= minRightA` (use -inf / +inf past the ends). Odd total: the median is `max(maxLeftA, maxLeftB)`; even total: the average of that and `min(minRightA, minRightB)`.
 
 ## Binary search on the answer

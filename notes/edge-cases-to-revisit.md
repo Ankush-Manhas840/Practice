@@ -27,7 +27,7 @@ file, then run your version on the failing input.
 | [rotate-array-left-by-k](../solutions/arrays-hashing/rotate-array-left-by-k.py) (rotate-right block) | `[1,2,3,4]`, k=12 gives the array doubled | `arr[-0:]` is the whole array | special-case `k % n == 0` |
 | [prime-check](../solutions/math-geometry/prime-check.py) | `1`, `0`, `-1` print "Prime" | no `n < 2` guard | return "not prime" first |
 | [pascals-triangle-element-formula](../solutions/math-geometry/pascals-triangle-element-formula.py) | row 12, col 6 gives 461 (should be 462) | float `/` then `int()` truncates | integer `//` at each step |
-| [median-of-two-sorted-arrays](../solutions/binary-search/median-of-two-sorted-arrays.py) | `[1,3]` and `[2,3]` gives 3.0 (should be 2.5); `[2,3,5,5]` and `[2,5]` gives 5.0 (should be 4.0) | the "equal values" branch skips two positions at once and overwrites `prev`, which is wrong when the equal pair sits on the middle positions | treat equal values as an ordinary single step |
+| [median-of-two-sorted-arrays](../solutions/binary-search/median-of-two-sorted-arrays.py) | FIXED 2026-09-21. Before: `[1,3]` and `[2,3]` gave 3.0 (should be 2.5) | the "equal values" branch skipped two positions at once and overwrote `prev` | equal values are now an ordinary single step |
 
 ## Quietly assume positive numbers
 

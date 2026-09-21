@@ -9,7 +9,6 @@ class Solution:
         count=0
         numb=merge_length//2
 
-
         while(count<=numb):
             prev=curr
 
@@ -30,14 +29,9 @@ class Solution:
                 curr=b[b_finger]
                 b_finger+=1
             else:                          # equal: take ONE, not both
-                count+=2
-
+                count+=1
                 curr=a[a_finger]
-                prev=curr
-
                 a_finger+=1
-                b_finger+=1
-
 
         if(merge_length%2==0):
             return(prev+curr)/2
