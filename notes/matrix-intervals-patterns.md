@@ -2,6 +2,10 @@
 
 ## Matrix
 
+**Row with maximum ones** — [row-with-max-ones.py](../solutions/matrix/row-with-max-ones.py)
+- Check what the problem guarantees before reaching for a trick. If rows are NOT guaranteed sorted (e.g. `[[0,1],[1,0]]` is valid input), there is no better way than scanning every cell: O(m×n). Binary search per row (find the first `1` in each row) only works when a row is guaranteed sorted with 0s before 1s — a stricter, different version of this problem. Don't assume the sorted variant just because the title sounds familiar.
+- Ties go to the row with the smaller index: use a strict `>` when updating the best count, not `>=`.
+
 **Set matrix zeroes** — [set-matrix-zeroes.py](../solutions/matrix/set-matrix-zeroes.py)
 - Record the coordinates of every zero FIRST, then zero their rows and columns. Zeroing while you scan turns the new zeros into more zeros.
 - Extra memory is O(number of zeros). The O(1)-space version uses the first row and first column as the markers.
