@@ -2,9 +2,10 @@
 
 ## Matrix
 
-**Row with maximum ones** — [row-with-max-ones.py](../solutions/matrix/row-with-max-ones.py)
-- Check what the problem guarantees before reaching for a trick. If rows are NOT guaranteed sorted (e.g. `[[0,1],[1,0]]` is valid input), there is no better way than scanning every cell: O(m×n). Binary search per row (find the first `1` in each row) only works when a row is guaranteed sorted with 0s before 1s — a stricter, different version of this problem. Don't assume the sorted variant just because the title sounds familiar.
-- Ties go to the row with the smaller index: use a strict `>` when updating the best count, not `>=`.
+**Row with maximum ones** — unsorted rows: [row-with-max-ones.py](../solutions/matrix/row-with-max-ones.py); sorted rows: [row-with-max-ones-sorted-binary-search.py](../solutions/matrix/row-with-max-ones-sorted-binary-search.py)
+- Check what the problem guarantees before reaching for a trick. If rows are NOT guaranteed sorted (e.g. `[[0,1],[1,0]]` is valid input), there is no better way than scanning every cell: O(m×n).
+- If every row IS guaranteed sorted with 0s before 1s (a stricter, different version — the GfG-style one), binary search each row for the first `1` (that's `lower_bound(row, 1)`); ones in that row = `n - index`. O(m log n).
+- Ties go to the row with the smaller index: use a strict `>` when updating the best count, not `>=`. All-zero matrix: no row has a 1, so return -1.
 
 **Set matrix zeroes** — [set-matrix-zeroes.py](../solutions/matrix/set-matrix-zeroes.py)
 - Record the coordinates of every zero FIRST, then zero their rows and columns. Zeroing while you scan turns the new zeros into more zeros.
