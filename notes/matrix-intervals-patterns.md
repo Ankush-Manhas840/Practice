@@ -7,6 +7,11 @@
 - If every row IS guaranteed sorted with 0s before 1s (a stricter, different version — the GfG-style one), binary search each row for the first `1` (that's `lower_bound(row, 1)`); ones in that row = `n - index`. O(m log n).
 - Ties go to the row with the smaller index: use a strict `>` when updating the best count, not `>=`. All-zero matrix: no row has a 1, so return -1.
 
+**Search a 2D matrix** — [search-2d-matrix.py](../solutions/matrix/search-2d-matrix.py)
+- Applies when the matrix is fully sorted if read left-to-right, top-to-bottom (every row's last value < next row's first value). First binary search the ROWS using `matrix[mid][0]` and `matrix[mid][-1]` to find the row that could contain `target`, then binary search WITHIN that row. O(log rows + log cols).
+- Equivalent one-search trick: treat the whole matrix as one flat sorted array of length `rows*cols` and binary search it directly, converting `mid` to `(mid // cols, mid % cols)`.
+- Different from the next problem (Search 2D Matrix II) below, which is sorted per-row AND per-column but NOT fully sorted end-to-end — that one needs a different algorithm.
+
 **Set matrix zeroes** — [set-matrix-zeroes.py](../solutions/matrix/set-matrix-zeroes.py)
 - Record the coordinates of every zero FIRST, then zero their rows and columns. Zeroing while you scan turns the new zeros into more zeros.
 - Extra memory is O(number of zeros). The O(1)-space version uses the first row and first column as the markers.
