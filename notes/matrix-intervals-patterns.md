@@ -10,7 +10,12 @@
 **Search a 2D matrix** — [search-2d-matrix.py](../solutions/matrix/search-2d-matrix.py)
 - Applies when the matrix is fully sorted if read left-to-right, top-to-bottom (every row's last value < next row's first value). First binary search the ROWS using `matrix[mid][0]` and `matrix[mid][-1]` to find the row that could contain `target`, then binary search WITHIN that row. O(log rows + log cols).
 - Equivalent one-search trick: treat the whole matrix as one flat sorted array of length `rows*cols` and binary search it directly, converting `mid` to `(mid // cols, mid % cols)`.
-- Different from the next problem (Search 2D Matrix II) below, which is sorted per-row AND per-column but NOT fully sorted end-to-end — that one needs a different algorithm.
+- Different from Search 2D Matrix II below, which is sorted per-row AND per-column but NOT fully sorted end-to-end — that one needs a different algorithm.
+
+**Search a 2D matrix II** — [search-2d-matrix-ii.py](../solutions/matrix/search-2d-matrix-ii.py)
+- Each row is sorted left to right, each column top to bottom, but the matrix is NOT fully sorted end-to-end (row-then-column binary search from the problem above does not apply).
+- Start at the top-right corner. That cell is the largest in its row and smallest in its column, so the comparison is unambiguous: too big -> move left (`col -= 1`); too small -> move down (`row += 1`); equal -> found. O(rows + cols).
+- Starting at the top-left or bottom-right corner doesn't work: at top-left, "too big" doesn't tell you whether to move right or down.
 
 **Set matrix zeroes** — [set-matrix-zeroes.py](../solutions/matrix/set-matrix-zeroes.py)
 - Record the coordinates of every zero FIRST, then zero their rows and columns. Zeroing while you scan turns the new zeros into more zeros.
