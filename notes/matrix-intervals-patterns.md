@@ -17,6 +17,12 @@
 - Start at the top-right corner. That cell is the largest in its row and smallest in its column, so the comparison is unambiguous: too big -> move left (`col -= 1`); too small -> move down (`row += 1`); equal -> found. O(rows + cols).
 - Starting at the top-left or bottom-right corner doesn't work: at top-left, "too big" doesn't tell you whether to move right or down.
 
+**Find peak element II** — [find-peak-element-ii.py](../solutions/binary-search/find-peak-element-ii.py)
+- A peak is strictly greater than all its (up to four) neighbours; adjacent cells are never equal. Binary search on the COLUMNS: take the middle column, find its maximum cell, and compare that cell with its left and right neighbours in the same row. If a neighbour is larger, move toward it (`high = mid - 1` or `low = mid + 1`); otherwise the cell is a peak. O(rows × log cols).
+- Why it works: the max of a column already beats its up/down neighbours, and a larger side neighbour means a peak must exist on that side (the search can only climb, and the edges act like -infinity), same argument as 1D peak finding.
+- **Re-test:** the code starts `max1 = 0`, so it only works when every value is >= 1 (true for the LeetCode constraints). With zero or negative values no cell beats 0, and `[[-1,-3]]` returns `[-1,-1]`. Start from the first cell of the column (or `-inf`) instead.
+- The line `max = 0` is unused and shadows Python's built-in `max`.
+
 **Set matrix zeroes** — [set-matrix-zeroes.py](../solutions/matrix/set-matrix-zeroes.py)
 - Record the coordinates of every zero FIRST, then zero their rows and columns. Zeroing while you scan turns the new zeros into more zeros.
 - Extra memory is O(number of zeros). The O(1)-space version uses the first row and first column as the markers.

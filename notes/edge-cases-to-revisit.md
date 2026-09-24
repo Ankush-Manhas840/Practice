@@ -40,6 +40,10 @@ For arrays with negatives, use prefix sums + a dict.
 
 | Solution | Failing input | Why |
 |---|---|---|
+| [find-peak-element-ii](../solutions/binary-search/find-peak-element-ii.py) | `[[-1,-3]]` returns `[-1,-1]` | starts `max1 = 0`, so it needs every value >= 1 (true under LeetCode's constraints) |
+
+| Solution | Failing input | Why |
+|---|---|---|
 | [gas-station-min-max-distance](../solutions/binary-search/gas-station-min-max-distance.py) | `[1,1,5]`, k=1 gives about 1.33 (should be 2) | assumes strictly increasing positions; a zero gap contributes `-1` to the count |
 
 ## Correct, but worth knowing
