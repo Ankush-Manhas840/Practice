@@ -27,6 +27,7 @@ file, then run your version on the failing input.
 | [rotate-array-left-by-k](../solutions/arrays-hashing/rotate-array-left-by-k.py) (rotate-right block) | `[1,2,3,4]`, k=12 gives the array doubled | `arr[-0:]` is the whole array | special-case `k % n == 0` |
 | [prime-check](../solutions/math-geometry/prime-check.py) | `1`, `0`, `-1` print "Prime" | no `n < 2` guard | return "not prime" first |
 | [pascals-triangle-element-formula](../solutions/math-geometry/pascals-triangle-element-formula.py) | row 12, col 6 gives 461 (should be 462) | float `/` then `int()` truncates | integer `//` at each step |
+| [matrix-median](../solutions/binary-search/matrix-median.py) | FIXED 2026-09-24. Before: never finished, even on `[[1,3,5],[2,6,9],[3,6,9]]` | `while low <= high` combined with `high = mid` repeats forever once `low == high` | `high = mid - 1` (or switch to `while low < high`) |
 | [median-of-two-sorted-arrays](../solutions/binary-search/median-of-two-sorted-arrays.py) | FIXED 2026-09-21. Before: `[1,3]` and `[2,3]` gave 3.0 (should be 2.5) | the "equal values" branch skipped two positions at once and overwrote `prev` | equal values are now an ordinary single step |
 
 ## Quietly assume positive numbers
