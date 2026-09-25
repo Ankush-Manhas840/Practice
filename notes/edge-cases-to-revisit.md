@@ -65,6 +65,7 @@ For arrays with negatives, use prefix sums + a dict.
 - [koko-eating-bananas](../solutions/binary-search/koko-eating-bananas.py): unused `test = piles[:]` inside the loop.
 - [fibonacci-recursive](../solutions/recursion/fibonacci-recursive.py): uses `fibo(0) = fibo(1) = 1`, shifted from the textbook sequence.
 - [patterns-batch-1.py](../solutions/pattern-printing/patterns-batch-1.py): `n = input(...)` is a string, so `n - 1` raises `TypeError`.
+- [roman-to-integer](../solutions/strings/roman-to-integer.py): correct for all 3,999 valid numerals; a lowercase or invalid character makes `val` return `None` and raises `TypeError`.
 
 ## Checked and fine
 
