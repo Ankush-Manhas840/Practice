@@ -41,6 +41,10 @@ For arrays with negatives, use prefix sums + a dict.
 
 | Solution | Failing input | Why |
 |---|---|---|
+| [max-nesting-depth-parentheses](../solutions/strings/max-nesting-depth-parentheses.py) | `"((("` returns 0 (should be 3) | records the maximum only at a `)`, so it needs a balanced string (which the problem guarantees) |
+
+| Solution | Failing input | Why |
+|---|---|---|
 | [find-peak-element-ii](../solutions/binary-search/find-peak-element-ii.py) | `[[-1,-3]]` returns `[-1,-1]` | starts `max1 = 0`, so it needs every value >= 1 (true under LeetCode's constraints) |
 
 | Solution | Failing input | Why |
