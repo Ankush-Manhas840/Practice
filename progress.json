@@ -25,7 +25,8 @@
     "bit-manipulation",
     "union-find",
     "recursion",
-    "matrix"
+    "matrix",
+    "strings"
   ],
   "questions": [
     { "id": "pattern-solid-square", "title": "Solid Square of Stars", "topic": "pattern-printing", "difficulty": "Easy", "first_attempted": "2026-07-27", "status": "solved", "interval_index": 1, "times_reviewed": 1, "last_reviewed": "2026-07-27", "next_review": "2026-07-30", "solution_file": "solutions/pattern-printing/patterns-batch-1.py" },
@@ -144,6 +145,7 @@
     { "id": "search-2d-matrix", "title": "Search a 2D Matrix (Rows Sorted, Next Row Starts After Previous Ends)", "topic": "matrix", "difficulty": "Medium", "first_attempted": "2026-09-23", "status": "solved", "interval_index": 0, "times_reviewed": 1, "last_reviewed": "2026-09-23", "next_review": "2026-09-24", "solution_file": "solutions/matrix/search-2d-matrix.py" },
     { "id": "search-2d-matrix-ii", "title": "Search a 2D Matrix II (Rows and Columns Sorted, Top-Right Walk)", "topic": "matrix", "difficulty": "Medium", "first_attempted": "2026-09-23", "status": "solved", "interval_index": 0, "times_reviewed": 1, "last_reviewed": "2026-09-23", "next_review": "2026-09-24", "solution_file": "solutions/matrix/search-2d-matrix-ii.py" },
     { "id": "find-peak-element-ii", "title": "Find Peak Element II (Binary Search on Columns)", "topic": "binary-search", "difficulty": "Hard", "first_attempted": "2026-09-24", "status": "solved", "interval_index": 0, "times_reviewed": 1, "last_reviewed": "2026-09-24", "next_review": "2026-09-25", "solution_file": "solutions/binary-search/find-peak-element-ii.py" },
-    { "id": "matrix-median", "title": "Median of a Row-Wise Sorted Matrix (Binary Search on Value)", "topic": "binary-search", "difficulty": "Hard", "first_attempted": "2026-09-24", "status": "solved", "interval_index": 0, "times_reviewed": 1, "last_reviewed": "2026-09-24", "next_review": "2026-09-25", "solution_file": "solutions/binary-search/matrix-median.py" }
+    { "id": "matrix-median", "title": "Median of a Row-Wise Sorted Matrix (Binary Search on Value)", "topic": "binary-search", "difficulty": "Hard", "first_attempted": "2026-09-24", "status": "solved", "interval_index": 0, "times_reviewed": 1, "last_reviewed": "2026-09-24", "next_review": "2026-09-25", "solution_file": "solutions/binary-search/matrix-median.py" },
+    { "id": "remove-outer-parentheses", "title": "Remove Outermost Parentheses", "topic": "strings", "difficulty": "Easy", "first_attempted": "2026-09-25", "status": "solved", "interval_index": 0, "times_reviewed": 1, "last_reviewed": "2026-09-25", "next_review": "2026-09-26", "solution_file": "solutions/strings/remove-outer-parentheses.py" }
   ]
 }

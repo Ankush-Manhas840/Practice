@@ -14,6 +14,7 @@ Last checked against the code: 2026-09-19.
 | [two-pointers-sliding-window.md](two-pointers-sliding-window.md) | in-place tricks, 3Sum/4Sum, sliding windows and their limits |
 | [recursion-math.md](recursion-math.md) | recursion basics, number theory, Pascal's triangle |
 | [matrix-intervals-patterns.md](matrix-intervals-patterns.md) | matrix traversal/rotation, merge intervals, pattern printing |
+| [strings.md](strings.md) | string problems and string-specific habits |
 | [edge-cases-to-revisit.md](edge-cases-to-revisit.md) | every solution that broke on some input, with the failing input |
 
 ## How to revise
