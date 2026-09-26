@@ -66,6 +66,7 @@ For arrays with negatives, use prefix sums + a dict.
 - [fibonacci-recursive](../solutions/recursion/fibonacci-recursive.py): uses `fibo(0) = fibo(1) = 1`, shifted from the textbook sequence.
 - [patterns-batch-1.py](../solutions/pattern-printing/patterns-batch-1.py): `n = input(...)` is a string, so `n - 1` raises `TypeError`.
 - [roman-to-integer](../solutions/strings/roman-to-integer.py): correct for all 3,999 valid numerals; a lowercase or invalid character makes `val` return `None` and raises `TypeError`.
+- [string-to-integer-atoi](../solutions/strings/string-to-integer-atoi.py): correct on 22,026 checked inputs; `lstrip()` also strips tabs and newlines, which the problem's rules don't count as whitespace (`"\t42"` gives 42, not 0).
 
 ## Checked and fine
 

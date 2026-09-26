@@ -22,6 +22,15 @@
 - A dictionary (`{'I': 1, 'V': 5, ...}`) replaces the long `if/elif` chain in `val` and returns a clear `KeyError` for a bad character.
 - Anything that isn't an uppercase Roman letter makes `val` return `None`, and the comparison then raises a `TypeError` (`"iv"` and `"XZ"` both do). The problem guarantees valid input, so this is fine here.
 
+## Parsing rules
+
+**String to integer (atoi)** — [string-to-integer-atoi.py](../solutions/strings/string-to-integer-atoi.py)
+- Follow the rules in order: skip leading spaces, read one optional sign, read digits until the first non-digit, then clamp to `[-2^31, 2^31 - 1]`. Anything after the digits is ignored (`"3.14"` gives 3, `"1337c0d3"` gives 1337).
+- The trap is a sign followed by no digits (`"+"`, `"-"`, `"+-12"`, `"- 5"`): the answer is 0. Comparing where the sign ended (`j`) with where the digits ended (`i`) is what handles it. `"words and 987"` is also 0, because parsing stops at the first character.
+- Python integers don't overflow, so you can build the full number and clamp once at the end. In Java or C++ you must check for overflow before each `x = x * 10 + digit`.
+- Checked against a reference on 22,026 inputs, including values right at the 32-bit limits.
+- `s.lstrip()` strips tabs and newlines as well as spaces; the problem only counts the space character. So `"\t42"` returns 42 here, where the strict rule says 0. Tabs can't occur in this problem's inputs, but it is the kind of difference that matters when an interviewer changes the spec.
+
 ## Habits worth fixing
 
 - **Don't name a variable `str`.** It shadows Python's built-in `str` inside that scope; it works here only because nothing calls `str(...)` afterwards. The same happened with `max`, `sum` and `min` in earlier solutions (`find-max`, `max-subarray-sum-kadane`, `four-sum`, `longest-subarray-sum-k`). Use `result`, `total`, `best`, and so on.
