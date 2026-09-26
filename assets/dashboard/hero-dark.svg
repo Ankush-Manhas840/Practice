@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="376" viewBox="0 0 880 376" role="img" aria-labelledby="t d">
 <title id="t">Practice dashboard</title>
-<desc id="d">117 problems logged across 10 topics on 18 days; 45 easy, 49 medium, 23 hard; 15 in review.</desc>
+<desc id="d">118 problems logged across 10 topics on 19 days; 45 easy, 50 medium, 23 hard; 15 in review.</desc>
 <defs>
 <style>
 text { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI Variable Display", "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif; }
@@ -27,23 +27,23 @@ text { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro
 <text x="48" y="230" font-size="16" font-weight="500" fill="#A1A1A6" text-anchor="start" letter-spacing="0.005em" class="fade" style="animation-delay:100ms">with the traps written down.</text>
 <text x="48" y="300" font-size="36" font-weight="650" fill="#F5F5F7" text-anchor="start" letter-spacing="-0.03em" class="num fade" style="animation-delay:140ms">10</text>
 <text x="48" y="326" font-size="13" font-weight="500" fill="#A1A1A6" text-anchor="start" letter-spacing="0.01em" class="fade" style="animation-delay:160ms">topics</text>
-<text x="176" y="300" font-size="36" font-weight="650" fill="#F5F5F7" text-anchor="start" letter-spacing="-0.03em" class="num fade" style="animation-delay:200ms">18</text>
+<text x="176" y="300" font-size="36" font-weight="650" fill="#F5F5F7" text-anchor="start" letter-spacing="-0.03em" class="num fade" style="animation-delay:200ms">19</text>
 <text x="176" y="326" font-size="13" font-weight="500" fill="#A1A1A6" text-anchor="start" letter-spacing="0.01em" class="fade" style="animation-delay:220ms">active days</text>
 <text x="304" y="300" font-size="36" font-weight="650" fill="#F5F5F7" text-anchor="start" letter-spacing="-0.03em" class="num fade" style="animation-delay:260ms">15</text>
 <text x="304" y="326" font-size="13" font-weight="500" fill="#A1A1A6" text-anchor="start" letter-spacing="0.01em" class="fade" style="animation-delay:280ms">in review</text>
 <g class="pop" style="animation-delay:80ms">
-<circle cx="686" cy="174" r="84" fill="none" stroke="#30D158" stroke-width="22" stroke-linecap="round" stroke-dasharray="173.00 527.79" stroke-dashoffset="-15.00" transform="rotate(-90 686 174)"/>
-<circle cx="686" cy="174" r="84" fill="none" stroke="#FF9F0A" stroke-width="22" stroke-linecap="round" stroke-dasharray="191.04 527.79" stroke-dashoffset="-218.00" transform="rotate(-90 686 174)"/>
-<circle cx="686" cy="174" r="84" fill="none" stroke="#FF453A" stroke-width="22" stroke-linecap="round" stroke-dasharray="73.75 527.79" stroke-dashoffset="-439.03" transform="rotate(-90 686 174)"/>
+<circle cx="686" cy="174" r="84" fill="none" stroke="#30D158" stroke-width="22" stroke-linecap="round" stroke-dasharray="171.27 527.79" stroke-dashoffset="-15.00" transform="rotate(-90 686 174)"/>
+<circle cx="686" cy="174" r="84" fill="none" stroke="#FF9F0A" stroke-width="22" stroke-linecap="round" stroke-dasharray="193.64 527.79" stroke-dashoffset="-216.27" transform="rotate(-90 686 174)"/>
+<circle cx="686" cy="174" r="84" fill="none" stroke="#FF453A" stroke-width="22" stroke-linecap="round" stroke-dasharray="72.87 527.79" stroke-dashoffset="-439.91" transform="rotate(-90 686 174)"/>
 </g>
-<text x="686" y="188" font-size="54" font-weight="700" fill="#F5F5F7" text-anchor="middle" letter-spacing="-0.04em" class="num fade" style="animation-delay:0ms">117</text>
+<text x="686" y="188" font-size="54" font-weight="700" fill="#F5F5F7" text-anchor="middle" letter-spacing="-0.04em" class="num fade" style="animation-delay:0ms">118</text>
 <text x="686" y="214" font-size="14" font-weight="500" fill="#A1A1A6" text-anchor="middle" letter-spacing="0.01em" class="fade" style="animation-delay:60ms">problems</text>
 <circle cx="553" cy="302" r="5" fill="#30D158"/>
 <text x="564" y="307" font-size="14" font-weight="500" fill="#A1A1A6" text-anchor="start" letter-spacing="0.01em">Easy</text>
 <text x="603.8" y="307" font-size="14" font-weight="650" fill="#F5F5F7" text-anchor="start" letter-spacing="0.0em" class="num">45</text>
 <circle cx="651" cy="302" r="5" fill="#FF9F0A"/>
 <text x="662" y="307" font-size="14" font-weight="500" fill="#A1A1A6" text-anchor="start" letter-spacing="0.01em">Medium</text>
-<text x="718.2" y="307" font-size="14" font-weight="650" fill="#F5F5F7" text-anchor="start" letter-spacing="0.0em" class="num">49</text>
+<text x="718.2" y="307" font-size="14" font-weight="650" fill="#F5F5F7" text-anchor="start" letter-spacing="0.0em" class="num">50</text>
 <circle cx="757" cy="302" r="5" fill="#FF453A"/>
 <text x="768" y="307" font-size="14" font-weight="500" fill="#A1A1A6" text-anchor="start" letter-spacing="0.01em">Hard</text>
 <text x="807.8" y="307" font-size="14" font-weight="650" fill="#F5F5F7" text-anchor="start" letter-spacing="0.0em" class="num">23</text>
