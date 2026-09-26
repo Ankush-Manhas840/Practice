@@ -1,57 +1,45 @@
-# DSA Practice
+<div align="center">
 
-A tracked, spaced-repetition DSA practice system. Claude generates a daily set,
-you solve it, Claude logs it and schedules the review.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/dashboard/hero-dark.svg">
+  <img src="assets/dashboard/hero-light.svg" alt="Practice dashboard: the total number of problems logged, shown as a ring split by difficulty, with topic, active-day and in-review counts" width="100%">
+</picture>
 
-## Layout
+<br/><br/>
 
-```
-practice/
-  progress.json      <- source of truth: every question, its status, next review date
-  daily/              <- one file per day, e.g. daily/2026-07-27.md, with that day's set
-  solutions/<topic>/  <- your solutions, e.g. solutions/arrays-hashing/two-sum.py
-  README.md
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/dashboard/topics-dark.svg">
+  <img src="assets/dashboard/topics-light.svg" alt="Bar chart of problems solved per topic" width="100%">
+</picture>
 
-## How the daily set works
+<br/><br/>
 
-Each day's set is a mix (per your preference):
-- **Review questions**: anything in `progress.json` whose `next_review` date has arrived,
-  pulled from what you've already attempted.
-- **New questions**: 1-2 fresh problems, biased toward topics with the fewest entries so far
-  (see `topics` list in `progress.json`).
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/dashboard/activity-dark.svg">
+  <img src="assets/dashboard/activity-light.svg" alt="Column chart of problems logged per week" width="100%">
+</picture>
 
-## Spaced repetition rule
+</div>
 
-Each question has an `interval_index` into `review_intervals_days: [1, 3, 7, 14, 30, 60]`.
+<br/>
 
-- Solve it cleanly on review -> `interval_index` moves up one (next review further away).
-- Struggle or fail -> `interval_index` resets to `0` (review again tomorrow).
-- A question "graduates" (stops appearing) after it's been solved cleanly at the last interval (60 days).
+Problems follow Striver's A2Z DSA sheet, written in Python. The cards above are generated from [`progress.json`](progress.json), so they always match what is in the repo.
 
-## Daily workflow
+## Explore
 
-1. Each morning a scheduled task writes `daily/<date>.md` with that day's questions.
-2. You solve them, saving code under `solutions/<topic>/<id>.py`.
-3. Tell Claude you're done (or paste your solution / say where you got stuck).
-4. Claude updates `progress.json` (status, next review date) and commits locally.
-5. Claude will **always ask before pushing to GitHub** — nothing goes to the public
-   repo without your explicit go-ahead each time, unless you tell it to stop asking.
+| | |
+|---|---|
+| **[Solutions](solutions/)** | One folder per topic. Each file is the solution as I wrote it, named for the problem. |
+| **[Notes](notes/README.md)** | The trick behind each topic, and the traps that broke my own code. |
+| **[Edge cases](notes/edge-cases-to-revisit.md)** | Every solution that failed on some input, with the failing input. |
+| **[Questions log](questions-log.xlsx)** | Every problem in one spreadsheet: topic, difficulty, dates and review schedule. |
+| **[Progress data](progress.json)** | The source of truth behind everything on this page. |
 
-## Question entry schema (progress.json)
+## How it works
 
-```json
-{
-  "id": "two-sum",
-  "title": "Two Sum",
-  "topic": "arrays-hashing",
-  "difficulty": "Easy",
-  "first_attempted": "2026-07-27",
-  "status": "new | solved | struggled",
-  "interval_index": 0,
-  "times_reviewed": 0,
-  "last_reviewed": "2026-07-27",
-  "next_review": "2026-07-28",
-  "solution_file": "solutions/arrays-hashing/two-sum.py"
-}
-```
+1. Solve a problem and save it under `solutions/<topic>/`.
+2. Test it against a brute-force reference on random inputs and edge cases. (Pattern-printing problems are checked by eye.)
+3. Log it in `progress.json` with its topic, difficulty and review date.
+4. Run `python scripts/generate_questions_log.py`, which rebuilds the spreadsheet and the cards above.
+
+A solution that fails a check is marked `struggled` and comes back the next day. Ones that hold up return after 1, 3, 7, 14, 30 and then 60 days.

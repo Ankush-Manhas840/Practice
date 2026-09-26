@@ -113,6 +113,9 @@ def main():
     wb.save(OUTPUT_XLSX)
     print(f"Wrote {len(solved)} solved questions to {OUTPUT_XLSX}")
 
+    from generate_dashboard import main as build_dashboard
+    build_dashboard()
+
 
 if __name__ == "__main__":
     main()
