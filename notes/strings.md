@@ -31,6 +31,18 @@
 - Ties: it keeps the first longest one it finds (`"babad"` gives `"bab"`), and the problem accepts any longest palindrome. The `<` in `len(lon) < len(cand)` is what keeps the earlier one.
 - Worth knowing for later: Manacher's algorithm does the same job in O(n), and a DP table over `(i, j)` is the O(n²)-space version you'll see in editorials.
 
+## Counting inside substrings
+
+**Sum of beauty of all substrings** — [sum-of-beauty-of-all-substrings.py](../solutions/strings/sum-of-beauty-of-all-substrings.py)
+- Beauty of a substring is (highest letter count) minus (lowest letter count). Fix the start `i`, extend the end `j` one letter at a time, update the counts incrementally, and add the beauty of each new substring. Never recount a substring from scratch.
+- The repo version is the intended approach: O(n²) substrings, with an O(26) max/min scan on each. The problem's limit of n <= 500 is sized for exactly this. Checked on 909 inputs against a brute force.
+- No asymptotically better algorithm is known or expected for this problem, so "no better solution" is roughly right. But the 26 factor can be removed, and it is a real speed-up (0.07s instead of 0.77s on a 500-letter string):
+  - The max only ever goes up as you extend, so `maxf = max(maxf, cnt[c])`.
+  - For the min, keep `freq[k]` = how many letters currently have count `k`. When a letter's count goes from `old` to `old + 1`: a brand-new letter sets `minf = 1`; otherwise if `old == minf` and `freq[old]` is now 0, then `minf += 1`.
+  - That is O(1) per step, so O(n²) overall.
+- Worth learning: the incremental-count pattern (that is the point of the problem) and using a 26-slot array instead of a dict for lowercase letters. The frequency-of-frequencies table is a small trick that comes back in some harder problems, so ten minutes on it is plenty.
+- Small style notes: `max(hashmap.values())` is simpler than `max(hashmap, key=hashmap.get)` followed by a lookup, and `sum` shadows the built-in again.
+
 ## Parsing rules
 
 **String to integer (atoi)** — [string-to-integer-atoi.py](../solutions/strings/string-to-integer-atoi.py)

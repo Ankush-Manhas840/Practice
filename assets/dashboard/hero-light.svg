@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="376" viewBox="0 0 880 376" role="img" aria-labelledby="t d">
 <title id="t">Practice dashboard</title>
-<desc id="d">118 problems logged across 10 topics on 19 days; 45 easy, 50 medium, 23 hard; 15 in review.</desc>
+<desc id="d">119 problems logged across 10 topics on 19 days; 45 easy, 51 medium, 23 hard; 15 in review.</desc>
 <defs>
 <style>
 text { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI Variable Display", "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif; }
@@ -32,18 +32,18 @@ text { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro
 <text x="304" y="300" font-size="36" font-weight="650" fill="#1D1D1F" text-anchor="start" letter-spacing="-0.03em" class="num fade" style="animation-delay:260ms">15</text>
 <text x="304" y="326" font-size="13" font-weight="500" fill="#6E6E73" text-anchor="start" letter-spacing="0.01em" class="fade" style="animation-delay:280ms">in review</text>
 <g class="pop" style="animation-delay:80ms">
-<circle cx="686" cy="174" r="84" fill="none" stroke="#34C759" stroke-width="22" stroke-linecap="round" stroke-dasharray="171.27 527.79" stroke-dashoffset="-15.00" transform="rotate(-90 686 174)"/>
-<circle cx="686" cy="174" r="84" fill="none" stroke="#FF9F0A" stroke-width="22" stroke-linecap="round" stroke-dasharray="193.64 527.79" stroke-dashoffset="-216.27" transform="rotate(-90 686 174)"/>
-<circle cx="686" cy="174" r="84" fill="none" stroke="#FF3B30" stroke-width="22" stroke-linecap="round" stroke-dasharray="72.87 527.79" stroke-dashoffset="-439.91" transform="rotate(-90 686 174)"/>
+<circle cx="686" cy="174" r="84" fill="none" stroke="#34C759" stroke-width="22" stroke-linecap="round" stroke-dasharray="169.58 527.79" stroke-dashoffset="-15.00" transform="rotate(-90 686 174)"/>
+<circle cx="686" cy="174" r="84" fill="none" stroke="#FF9F0A" stroke-width="22" stroke-linecap="round" stroke-dasharray="196.19 527.79" stroke-dashoffset="-214.58" transform="rotate(-90 686 174)"/>
+<circle cx="686" cy="174" r="84" fill="none" stroke="#FF3B30" stroke-width="22" stroke-linecap="round" stroke-dasharray="72.01 527.79" stroke-dashoffset="-440.78" transform="rotate(-90 686 174)"/>
 </g>
-<text x="686" y="188" font-size="54" font-weight="700" fill="#1D1D1F" text-anchor="middle" letter-spacing="-0.04em" class="num fade" style="animation-delay:0ms">118</text>
+<text x="686" y="188" font-size="54" font-weight="700" fill="#1D1D1F" text-anchor="middle" letter-spacing="-0.04em" class="num fade" style="animation-delay:0ms">119</text>
 <text x="686" y="214" font-size="14" font-weight="500" fill="#6E6E73" text-anchor="middle" letter-spacing="0.01em" class="fade" style="animation-delay:60ms">problems</text>
 <circle cx="553" cy="302" r="5" fill="#34C759"/>
 <text x="564" y="307" font-size="14" font-weight="500" fill="#6E6E73" text-anchor="start" letter-spacing="0.01em">Easy</text>
 <text x="603.8" y="307" font-size="14" font-weight="650" fill="#1D1D1F" text-anchor="start" letter-spacing="0.0em" class="num">45</text>
 <circle cx="651" cy="302" r="5" fill="#FF9F0A"/>
 <text x="662" y="307" font-size="14" font-weight="500" fill="#6E6E73" text-anchor="start" letter-spacing="0.01em">Medium</text>
-<text x="718.2" y="307" font-size="14" font-weight="650" fill="#1D1D1F" text-anchor="start" letter-spacing="0.0em" class="num">50</text>
+<text x="718.2" y="307" font-size="14" font-weight="650" fill="#1D1D1F" text-anchor="start" letter-spacing="0.0em" class="num">51</text>
 <circle cx="757" cy="302" r="5" fill="#FF3B30"/>
 <text x="768" y="307" font-size="14" font-weight="500" fill="#6E6E73" text-anchor="start" letter-spacing="0.01em">Hard</text>
 <text x="807.8" y="307" font-size="14" font-weight="650" fill="#1D1D1F" text-anchor="start" letter-spacing="0.0em" class="num">23</text>
