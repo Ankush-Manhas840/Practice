@@ -78,3 +78,7 @@ All of these matched the brute force on every random input tried:
 - Matrix: set matrix zeroes, spiral, rotate matrix (square).
 - Binary search: plain search, lower/upper bound, floor/ceil, last occurrence, count occurrences, search insert position, find min in a rotated array, rotation count, single non-duplicate, peak element, sqrt, nth root, Koko, bouquets, smallest divisor, ship within days, aggressive cows, both kth-missing versions.
 - Math and recursion: palindrome number, Armstrong, gcd, find-divisors (as a set), row-building Pascal, recursive palindrome, factorial.
+
+## Pow(x, n): precision on huge n
+
+- [pow-x-n.py](../solutions/recursion/pow-x-n.py) loses accuracy when `x` is close to 1 and `|n|` is near 2^31 (for example `x = 0.9999999953378998`, `n = -1951257921`: returns 8928.110330588064, exact is 8928.108774968605). Repeated squaring amplifies tiny rounding errors, and inverting `x` first adds one more. LeetCode reported a mismatch in the last digit on a large test (2026-10-01).

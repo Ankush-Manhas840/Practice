@@ -51,7 +51,7 @@ Every recursive function needs (1) a base case that returns without recursing an
 - The key is calling the recursion **once** and squaring the result. Writing `checker(x, n//2) * checker(x, n//2)` looks the same but makes two calls at every level, which is back to O(n).
 - Negative n: use `x^-n = (1/x)^n`. The solution flips `x` and makes `n` positive on the first call; after that `n` is never negative again.
 - Recursion depth is about log2(n), so at most ~32 calls: no recursion-limit problem.
-- Checked against Python's `x ** n` on 20,000+ inputs, including `n = -2^31` and `x = ±1`: all correct.
+- **Precision trap (fails on LeetCode):** when `x` is very close to 1 and `|n|` is huge (e.g. `x = 0.9999999953`, `n = -1951257921`, answer about 8928), each squaring adds a tiny rounding error and the ~31 squarings multiply it up, so the answer is off in the 3rd decimal (8928.11033 instead of 8928.10877). My first check skipped these inputs, so it wrongly reported all correct. Flipping `x = 1/x` at the start makes it worse, because the rounding error in `1/x` gets raised to the power n too; computing `x^|n|` and taking `1/result` at the end halves the worst error but does not remove it. Python's `x ** n` is accurate to the last digit on the same inputs.
 - `n = 0` returns the integer `1` rather than `1.0`. LeetCode accepts it, but `1.0` matches the float return type.
 - In Java or C++, `abs(-2^31)` overflows a 32-bit int. Convert `n` to `long` first. Python has no such problem.
 
