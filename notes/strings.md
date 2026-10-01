@@ -43,6 +43,15 @@
 - Worth learning: the incremental-count pattern (that is the point of the problem) and using a 26-slot array instead of a dict for lowercase letters. The frequency-of-frequencies table is a small trick that comes back in some harder problems, so ten minutes on it is plenty.
 - Small style notes: `max(hashmap.values())` is simpler than `max(hashmap, key=hashmap.get)` followed by a lookup, and `sum` shadows the built-in again.
 
+**Count complete substrings (LeetCode 2953)** — [count-complete-substrings.py](../solutions/strings/count-complete-substrings.py)
+- A complete substring has every letter appearing exactly `k` times and neighbouring letters at most 2 apart. Key observation: if it has `d` distinct letters, its length is exactly `d * k`. So only 26 window lengths are possible (`k, 2k, ..., 26k`), and each one is a fixed-size sliding window.
+- For each length, slide the window keeping letter counts and `diff_bad` = number of adjacent pairs inside the window that differ by more than 2. When the window moves, the pair `(start-1, start)` leaves and the pair `(start+L-2, start+L-1)` enters. A window is valid when all counts equal `k` and `diff_bad == 0`.
+- Checked against a brute force on 4,007 inputs: all correct. Total work is O(26 · n · 26) because `count_checker` scans the map each step.
+- Speed: on n = 100,000 it takes about 4.3s here, which may exceed LeetCode's time limit. Two standard improvements:
+  - Split `word` into segments wherever two neighbours differ by more than 2. No complete substring can cross such a break, so the `diff_bad` counter disappears and each segment is solved on its own.
+  - Instead of checking every count, keep `good` = number of letters whose count is exactly `k`; the window is complete when `good == num_len`. That makes each step O(1), so O(26 · n) overall.
+- `diff_checker` is defined but never used.
+
 ## Parsing rules
 
 **String to integer (atoi)** — [string-to-integer-atoi.py](../solutions/strings/string-to-integer-atoi.py)
