@@ -26,6 +26,8 @@
 **Set matrix zeroes** — [set-matrix-zeroes.py](../solutions/matrix/set-matrix-zeroes.py)
 - Record the coordinates of every zero FIRST, then zero their rows and columns. Zeroing while you scan turns the new zeros into more zeros.
 - Extra memory is O(number of zeros). The O(1)-space version uses the first row and first column as the markers.
+- LeetCode version (2026-10-01): [set-matrix-zeroes-leetcode.py](../solutions/matrix/set-matrix-zeroes-leetcode.py). Same idea inside `setZeroes`, modifying `matrix` in place and returning nothing. Checked on 5,005 inputs, all correct.
+- Time is O(m·n + zeros·(m+n)). With many zeros the same row or column gets wiped again and again (an all-zero 200x200 grid does 80,000 wipes). Storing zero rows and zero columns in two sets, then doing one pass `if i in rows or j in cols: matrix[i][j] = 0`, makes it O(m·n) with O(m+n) memory, which is the usual middle step before the O(1) trick.
 
 **Rotate 90° clockwise** — [rotate-matrix-90.py](../solutions/matrix/rotate-matrix-90.py)
 - Transpose (swap `[i][j]` with `[j][i]` only where `i < j`), then reverse each row. For counter-clockwise, transpose and then reverse the order of the rows (flip top to bottom) instead.
