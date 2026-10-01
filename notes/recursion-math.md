@@ -44,6 +44,17 @@ Every recursive function needs (1) a base case that returns without recursing an
 - Try divisors `2 .. √n`; any hit means composite.
 - **Re-test:** add `if n < 2: not prime` first. Right now `1`, `0` and negative numbers print "Prime".
 
+## Fast power
+
+**Pow(x, n)** — [pow-x-n.py](../solutions/recursion/pow-x-n.py)
+- Binary exponentiation: compute `half = x^(n//2)` once, then return `half * half` (n even) or `half * half * x` (n odd). That is O(log n) multiplications instead of n, which is what makes `n = 2^31 - 1` possible.
+- The key is calling the recursion **once** and squaring the result. Writing `checker(x, n//2) * checker(x, n//2)` looks the same but makes two calls at every level, which is back to O(n).
+- Negative n: use `x^-n = (1/x)^n`. The solution flips `x` and makes `n` positive on the first call; after that `n` is never negative again.
+- Recursion depth is about log2(n), so at most ~32 calls: no recursion-limit problem.
+- Checked against Python's `x ** n` on 20,000+ inputs, including `n = -2^31` and `x = ±1`: all correct.
+- `n = 0` returns the integer `1` rather than `1.0`. LeetCode accepts it, but `1.0` matches the float return type.
+- In Java or C++, `abs(-2^31)` overflows a 32-bit int. Convert `n` to `long` first. Python has no such problem.
+
 ## Pascal's triangle
 
 **Element at row N, column c** — [row building](../solutions/math-geometry/pascals-triangle-element.py), [direct formula](../solutions/math-geometry/pascals-triangle-element-formula.py)
