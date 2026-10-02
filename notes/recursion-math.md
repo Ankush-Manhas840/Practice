@@ -55,6 +55,13 @@ Every recursive function needs (1) a base case that returns without recursing an
 - `n = 0` returns the integer `1` rather than `1.0`. LeetCode accepts it, but `1.0` matches the float return type.
 - In Java or C++, `abs(-2^31)` overflows a 32-bit int. Convert `n` to `long` first. Python has no such problem.
 
+**Count good numbers** — [count-good-numbers.py](../solutions/recursion/count-good-numbers.py)
+- Even positions (0, 2, 4, ...) can hold an even digit: 5 choices (0, 2, 4, 6, 8). Odd positions can hold a prime digit: 4 choices (2, 3, 5, 7). The positions are independent, so the answer is `5^even * 4^odd` with `even = (n + 1) // 2` and `odd = n // 2`.
+- `n` goes up to 10^15, so the powers must be computed with modular fast power. Python's built-in `pow(base, exp, mod)` does exactly the binary exponentiation from Pow(x, n), keeping every step below `mod`. Writing `5**even % mod` would try to build a number with ~700 trillion digits.
+- Take `% mod` after multiplying the two powers too; each is below `mod`, but their product is not.
+- Checked against brute force (every digit string) for n = 1 to 7 and the known answers for n = 1, 4, 50: all correct. n = 10^15 runs instantly.
+- In an interview you may be asked to write the modular power yourself: same as Pow(x, n), with `% mod` after every multiplication.
+
 ## Backtracking
 
 **Generate parentheses** — [generate-parentheses.py](../solutions/recursion/generate-parentheses.py)
