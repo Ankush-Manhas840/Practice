@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="592" viewBox="0 0 880 592" role="img" aria-labelledby="t d">
 <title id="t">Problems per topic</title>
-<desc id="d">Problems per topic: Arrays &amp; Hashing 32, Binary Search 29, Pattern Printing 21, Matrix 8, Math 8, Recursion 7, Strings 7, Two Pointers 6, Sliding Window 3, Intervals 1.</desc>
+<desc id="d">Problems per topic: Arrays &amp; Hashing 32, Binary Search 29, Pattern Printing 21, Matrix 8, Math 8, Recursion 8, Strings 7, Two Pointers 6, Sliding Window 3, Intervals 1.</desc>
 <defs>
 <style>
 text { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI Variable Display", "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif; }
@@ -44,8 +44,8 @@ text { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro
 <text x="832" y="327" font-size="15" font-weight="650" fill="#F5F5F7" text-anchor="end" letter-spacing="0.0em" class="num">8</text>
 <text x="48" y="371" font-size="15" font-weight="500" fill="#F5F5F7" text-anchor="start" letter-spacing="0.0em">Recursion</text>
 <rect x="236" y="361" width="560" height="10" rx="5" fill="rgba(255,255,255,0.11)"/>
-<rect class="grow" style="animation-delay:300ms" x="236" y="361" width="122.5" height="10" rx="5" fill="url(#acc)"/>
-<text x="832" y="371" font-size="15" font-weight="650" fill="#F5F5F7" text-anchor="end" letter-spacing="0.0em" class="num">7</text>
+<rect class="grow" style="animation-delay:300ms" x="236" y="361" width="140.0" height="10" rx="5" fill="url(#acc)"/>
+<text x="832" y="371" font-size="15" font-weight="650" fill="#F5F5F7" text-anchor="end" letter-spacing="0.0em" class="num">8</text>
 <text x="48" y="415" font-size="15" font-weight="500" fill="#F5F5F7" text-anchor="start" letter-spacing="0.0em">Strings</text>
 <rect x="236" y="405" width="560" height="10" rx="5" fill="rgba(255,255,255,0.11)"/>
 <rect class="grow" style="animation-delay:360ms" x="236" y="405" width="122.5" height="10" rx="5" fill="url(#acc)"/>

@@ -55,6 +55,15 @@ Every recursive function needs (1) a base case that returns without recursing an
 - `n = 0` returns the integer `1` rather than `1.0`. LeetCode accepts it, but `1.0` matches the float return type.
 - In Java or C++, `abs(-2^31)` overflows a 32-bit int. Convert `n` to `long` first. Python has no such problem.
 
+## Backtracking
+
+**Generate parentheses** — [generate-parentheses.py](../solutions/recursion/generate-parentheses.py)
+- Build the string one character at a time and only make moves that can still lead to a valid answer: add `(` while `open < n`, add `)` while `close < open`. Because invalid prefixes are never built, every finished string is valid and nothing has to be checked or filtered at the end.
+- Base case: `open == n and close == n` means the string has length `2n`, so save it. Here the check sits after the two recursive calls; it still works because at that point neither `if` fires, but putting the base case first is the usual habit and reads more clearly.
+- Passing `curr + '('` creates a new string for each call, so there is nothing to undo. With a list you would `append`, recurse, then `pop` (the explicit "backtrack" step).
+- Count of answers is the Catalan number (1, 2, 5, 14, 42, ... 16,796 for n = 10). Checked against brute force (every string of `(` and `)` filtered for validity) for n = 0 to 9: exact match, no duplicates.
+- `open` shadows Python's built-in `open()` inside the function; `opened` or `left` avoids that.
+
 ## Pascal's triangle
 
 **Element at row N, column c** — [row building](../solutions/math-geometry/pascals-triangle-element.py), [direct formula](../solutions/math-geometry/pascals-triangle-element-formula.py)
