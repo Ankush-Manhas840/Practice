@@ -64,6 +64,14 @@ Every recursive function needs (1) a base case that returns without recursing an
 - Count of answers is the Catalan number (1, 2, 5, 14, 42, ... 16,796 for n = 10). Checked against brute force (every string of `(` and `)` filtered for validity) for n = 0 to 9: exact match, no duplicates.
 - `open` shadows Python's built-in `open()` inside the function; `opened` or `left` avoids that.
 
+**Power set (all subsequences of a string)** — [power-set.py](../solutions/recursion/power-set.py)
+- Pick / not-pick: at each index make two calls, one that skips `s[index]` and one that adds it. When `index == len(s)` the current string is one finished subsequence. That gives 2^n results in O(n · 2^n) time.
+- This pick / not-pick tree is the template for the rest of the module (subsequence sum K, Combination Sum, Subsets I and II).
+- Checked against `itertools.combinations` on 3,000 strings: the same list in the same sorted order.
+- The empty string `""` is included (it is the "skip everything" branch). Some versions of the problem, including GfG's "non-empty subsequences" wording, expect it left out. If a judge rejects it, drop `""` before returning.
+- Repeated letters give repeated subsequences (`"aa"` gives `"a"` twice). That is correct when the problem counts positions; for unique subsets you need the Subsets II technique (sort, then skip equal neighbours at the same level).
+- The `return result` in the base case is never used by the caller; a plain `return` does the same.
+
 ## Pascal's triangle
 
 **Element at row N, column c** — [row building](../solutions/math-geometry/pascals-triangle-element.py), [direct formula](../solutions/math-geometry/pascals-triangle-element-formula.py)
