@@ -85,6 +85,13 @@ Every recursive function needs (1) a base case that returns without recursing an
 - The pruning is only valid for non-negative numbers; with negatives the sum can drop back to `k`.
 - `sum` shadows the built-in `sum`.
 
+**Count subsequences with sum K** — [count-subsequences-sum-k.py](../solutions/recursion/count-subsequences-sum-k.py)
+- Same pick / not-pick recursion as "does a subsequence exist", but each call returns a number and the two branches are **added** (`+` instead of `or`). A base case that matches returns 1, a dead end returns 0. All branches must run, so there is no early exit.
+- Why `count += 1` did not work: a number passed into a function is copied, so the change stays inside that call. Either return the counts (best) or keep the total in a list/dict that every call shares.
+- **The pushed file has two typos and does not run** (2026-10-04): the `return checker(...) + checker(...)` line is indented 3 spaces instead of 4 (`IndentationError`), and `Solution` passes `arr` although the parameter is named `nums` (`NameError`). Pushed as written; fix both before submitting.
+- After fixing only those two typos it matched a brute force on 10,000 inputs with values 1..6 (0 wrong). With zeros in the array it was wrong on 1,444 of 10,000: `[3, 0]` with `k = 3` should give 2 (`[3]` and `[3, 0]`) but `sum == k` returns 1 before the 0 is considered. The safe form decides only at the end: `if i == len(arr): return 1 if sum == k else 0`, then `if sum > k: return 0`.
+- Counting cannot stop early, so it is slower than the exists version on big inputs. Store each `(i, sum)` answer in a dict (memoization) to make it O(n·k).
+
 **Power set (all subsequences of a string)** — [power-set.py](../solutions/recursion/power-set.py)
 - Pick / not-pick: at each index make two calls, one that skips `s[index]` and one that adds it. When `index == len(s)` the current string is one finished subsequence. That gives 2^n results in O(n · 2^n) time.
 - This pick / not-pick tree is the template for the rest of the module (subsequence sum K, Combination Sum, Subsets I and II).

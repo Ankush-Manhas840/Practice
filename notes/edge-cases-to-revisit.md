@@ -82,3 +82,8 @@ All of these matched the brute force on every random input tried:
 ## Pow(x, n): precision on huge n
 
 - [pow-x-n.py](../solutions/recursion/pow-x-n.py) loses accuracy when `x` is close to 1 and `|n|` is near 2^31 (for example `x = 0.9999999953378998`, `n = -1951257921`: returns 8928.110330588064, exact is 8928.108774968605). Repeated squaring amplifies tiny rounding errors, and inverting `x` first adds one more. LeetCode reported a mismatch in the last digit on a large test (2026-10-01). Fixed the same day by dividing at the end (`return 1 / checker(x, -n)`) instead of flipping `x` first; it now passes.
+
+## Count subsequences with sum K: typos and zeros
+
+- [count-subsequences-sum-k.py](../solutions/recursion/count-subsequences-sum-k.py) is pushed as written and does not run: a 3-space indent on the final `return` in `checker` (`IndentationError`) and `arr` instead of `nums` in `Solution` (`NameError`). Fix both, then re-test.
+- Even when fixed, `if sum == k: return 1` undercounts when the array has 0s (`[3, 0]`, `k = 3` returns 1, answer is 2). Decide at the end of the array instead.
