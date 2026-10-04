@@ -77,6 +77,14 @@ Every recursive function needs (1) a base case that returns without recursing an
 - This is the simple, practical answer. The problem sits in the Recursion module because the interview version bans extra containers and loops: reverse using only recursion, with two helpers. `reverse(st)`: pop the top, reverse the rest, then call `insert_at_bottom(st, top)`. `insert_at_bottom(st, x)`: if empty push `x`, otherwise pop, recurse, push back. That is O(n²) time and O(n) recursion depth, no extra list. It is worth writing once, because "insert at the bottom of a stack" comes up on its own (sort a stack uses the same trick).
 - Note: a Python list is only a stack if you use `append` and `pop()` at the end. `pop(0)` is O(n).
 
+**Check if a subsequence with sum K exists** — [subsequence-sum-k-exists.py](../solutions/recursion/subsequence-sum-k-exists.py)
+- Pick / not-pick again, carrying the running sum. Return `True` as soon as `sum == k`, and `False` when the index runs out. The `or` between the two calls stops at the first success, so no other branch is explored after an answer is found.
+- The first version (no pruning) hit TLE on the judge. Adding `or sum>k` to the failure test made it pass: with non-negative numbers, once the sum goes past `k` it can never come back, so the whole branch is cut. The `sum==k` check must stay before the length check.
+- Checked against a brute force on 20,000 inputs: no mismatches. The empty subsequence counts, so `k = 0` is `True`.
+- Still 2^n in the worst case: when the numbers are small and `k` is huge the sum never passes `k`, so nothing is pruned (26 ones with k = 10^6 takes 20s here; every +2 elements is about 4x slower). It passes because the judge's tests have a `k` the pruning can cut, or few elements. For a guaranteed fast answer, remember each `(index, sum)` already tried (memoization) or use a reachable-sums array (subset-sum DP), both O(n·k).
+- The pruning is only valid for non-negative numbers; with negatives the sum can drop back to `k`.
+- `sum` shadows the built-in `sum`.
+
 **Power set (all subsequences of a string)** — [power-set.py](../solutions/recursion/power-set.py)
 - Pick / not-pick: at each index make two calls, one that skips `s[index]` and one that adds it. When `index == len(s)` the current string is one finished subsequence. That gives 2^n results in O(n · 2^n) time.
 - This pick / not-pick tree is the template for the rest of the module (subsequence sum K, Combination Sum, Subsets I and II).
