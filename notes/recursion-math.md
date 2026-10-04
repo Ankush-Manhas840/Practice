@@ -71,6 +71,12 @@ Every recursive function needs (1) a base case that returns without recursing an
 - Count of answers is the Catalan number (1, 2, 5, 14, 42, ... 16,796 for n = 10). Checked against brute force (every string of `(` and `)` filtered for validity) for n = 0 to 9: exact match, no duplicates.
 - `open` shadows Python's built-in `open()` inside the function; `opened` or `left` avoids that.
 
+**Reverse a stack** — [reverse-a-stack.py](../solutions/recursion/reverse-a-stack.py)
+- Pop everything into a second list: the first item popped (the top) becomes the first item of the new list, so the order is reversed. Then `st.extend(sy)` puts it back, so the original stack is reversed in place and the same list is returned. O(n) time, O(n) extra space.
+- Checked on 3,000 random lists, including empty: the stack and the returned list are both the reversed input.
+- This is the simple, practical answer. The problem sits in the Recursion module because the interview version bans extra containers and loops: reverse using only recursion, with two helpers. `reverse(st)`: pop the top, reverse the rest, then call `insert_at_bottom(st, top)`. `insert_at_bottom(st, x)`: if empty push `x`, otherwise pop, recurse, push back. That is O(n²) time and O(n) recursion depth, no extra list. It is worth writing once, because "insert at the bottom of a stack" comes up on its own (sort a stack uses the same trick).
+- Note: a Python list is only a stack if you use `append` and `pop()` at the end. `pop(0)` is O(n).
+
 **Power set (all subsequences of a string)** — [power-set.py](../solutions/recursion/power-set.py)
 - Pick / not-pick: at each index make two calls, one that skips `s[index]` and one that adds it. When `index == len(s)` the current string is one finished subsequence. That gives 2^n results in O(n · 2^n) time.
 - This pick / not-pick tree is the template for the rest of the module (subsequence sum K, Combination Sum, Subsets I and II).
