@@ -100,6 +100,13 @@ Every recursive function needs (1) a base case that returns without recursing an
 - Repeated letters give repeated subsequences (`"aa"` gives `"a"` twice). That is correct when the problem counts positions; for unique subsets you need the Subsets II technique (sort, then skip equal neighbours at the same level).
 - The `return result` in the base case is never used by the caller; a plain `return` does the same.
 
+**Binary strings with no two adjacent zeros** — [binary-strings-no-adjacent-zeros.py](../solutions/recursion/binary-strings-no-adjacent-zeros.py)
+- Build the string one character at a time. A `1` can always be added. A `0` can be added only when the string is empty or ends in `1`. Because invalid moves are never made, every string of length `n` that is reached is valid and goes straight into `result`. Same idea as Generate Parentheses: only make moves that can still lead to a valid answer.
+- Number of answers is Fibonacci-like: 2, 3, 5, 8, ... (`n = 3` gives 5: 111, 110, 101, 011, 010). Checked against a brute force (all 2^n strings, drop any containing `00`) for n = 1 to 14: exact match, no duplicates.
+- This is LeetCode 3211, "no two adjacent **zeros**". The sheet's title says "without consecutive **1s**", which is the same problem with 0 and 1 swapped; to switch, add `0` always and `1` only after a `0` (or at the start).
+- The order of the output is not sorted (`1` is tried before `0`). LeetCode accepts any order; if a judge wants sorted order, try `0` first.
+- Cleaned the whitespace and used 4-space indents before pushing (the logic is unchanged).
+
 ## Pascal's triangle
 
 **Element at row N, column c** — [row building](../solutions/math-geometry/pascals-triangle-element.py), [direct formula](../solutions/math-geometry/pascals-triangle-element-formula.py)
