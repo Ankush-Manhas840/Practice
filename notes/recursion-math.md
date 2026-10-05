@@ -107,6 +107,14 @@ Every recursive function needs (1) a base case that returns without recursing an
 - The order of the output is not sorted (`1` is tried before `0`). LeetCode accepts any order; if a judge wants sorted order, try `0` first.
 - Cleaned the whitespace and used 4-space indents before pushing (the logic is unchanged).
 
+**Combination Sum** — [combination-sum.py](../solutions/recursion/combination-sum.py)
+- Pick / not-pick with one difference: after **picking** `candidates[i]` you stay on the same index (`checker(i, ...)`) because a number may be used again and again; after **not picking** you move on (`checker(i+1, ...)`). Moving on is what stops the same combination from being built in a different order, so there are no duplicates.
+- Base cases: `sum == target` saves a copy of the path, `i == len(candidates)` or `sum > target` is a dead end. The `sum > target` cut is only valid because all numbers are positive.
+- `curr + [x]` builds a new list each call, so saved paths never change later. With one shared list you must save `curr[:]` and `pop()` after the recursive call (the usual backtracking form).
+- Checked against a brute force on 5,000 random inputs (distinct candidates 2..11, target up to 25): same set of combinations, no duplicates. `[2,3,6,7]`, target 7 gives `[[2,2,3],[7]]`.
+- Relies on the problem's rule that candidates are at least 1: a 0 would make `checker(i, ...)` repeat forever.
+- Cleaned the whitespace before pushing (the logic is unchanged).
+
 ## Pascal's triangle
 
 **Element at row N, column c** — [row building](../solutions/math-geometry/pascals-triangle-element.py), [direct formula](../solutions/math-geometry/pascals-triangle-element-formula.py)
