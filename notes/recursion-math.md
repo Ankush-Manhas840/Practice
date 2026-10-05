@@ -115,6 +115,14 @@ Every recursive function needs (1) a base case that returns without recursing an
 - Relies on the problem's rule that candidates are at least 1: a 0 would make `checker(i, ...)` repeat forever.
 - Cleaned the whitespace before pushing (the logic is unchanged).
 
+**Combination Sum II** — [combination-sum-ii.py](../solutions/recursion/combination-sum-ii.py)
+- Each number may be used once, and the input can repeat numbers (`[10,1,2,7,6,1,5]`). Sort first so equal numbers sit together. Then per value you decide **how many copies to take**: *not pick* jumps over the whole group of equal numbers (`checker(i + j, ...)`), *pick* takes one copy and moves to `i + 1` (which may be another copy of the same number). Taking 0, 1, 2, ... copies covers every multiset exactly once.
+- The `j` loop finds where the group of equal values ends; `j = j - i` turns that position into a step size, so `i + j` is the first different value.
+- Checked against a brute force (all index subsets, as sorted tuples) on 6,000 random inputs: same set of combinations, no duplicates. `[10,1,2,7,6,1,5]`, target 8 gives `[[2,6],[1,7],[1,2,5],[1,1,6]]`.
+- The `if curr not in result` test never removed anything in 5,000 random runs, because skipping the whole group already prevents duplicates. It is a linear scan of `result`, so it only costs time. It can be deleted. It is a safe habit when unsure, but know why it is not needed.
+- Speed: 100 numbers with target 30 finishes in about 0.01s here, since `sum > target` cuts almost every branch (all numbers are positive).
+- The usual alternative is a loop: `for k in range(i, n): if k > i and c[k] == c[k-1]: continue`, i.e. skip a number equal to the previous one *at the same level*. This is the form Subsets II uses, so learn both.
+
 ## Pascal's triangle
 
 **Element at row N, column c** — [row building](../solutions/math-geometry/pascals-triangle-element.py), [direct formula](../solutions/math-geometry/pascals-triangle-element-formula.py)
