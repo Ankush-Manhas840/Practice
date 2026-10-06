@@ -129,6 +129,13 @@ Every recursive function needs (1) a base case that returns without recursing an
 - Checked on `[]`, `[1]`, `[1,2]`, `[1,2,3]`: exact match with all 2^n combinations. The order of the output is not guaranteed to match any particular ordering.
 - Base case comes after the two recursive calls in your code, which works. Putting it first is the more usual habit.
 
+**Subsets II (all subsets with duplicates)** — [subsets-ii.py](../solutions/recursion/subsets-ii.py)
+- Sort first, so equal numbers sit together. For each value, make two decisions: **skip the whole group** (`subber(j, ...)`), or **take one and move to the next index** (`subber(i+1, ...)`). Taking 0 or 1 copy of a value covers all cases. If there are multiple copies, moving to `i+1` lets you decide on the next copy independently.
+- The `j` loop finds where the group of equal numbers ends; use `j` in the skip branch to jump over them all.
+- The `if curr not in result` check removes the rare duplicate when building the subset. It is a linear scan, so it costs time, but it is a safety net. Faster would be to track which multisets have been seen, but the current form works.
+- Checked on `[]`, `[1]`, `[1,2]`, `[1,1]`, `[1,2,2]`, `[4,4,0]`: no missing or duplicate subsets.
+- Cleaned the whitespace before pushing (the logic is unchanged).
+
 ## Pascal's triangle
 
 **Element at row N, column c** — [row building](../solutions/math-geometry/pascals-triangle-element.py), [direct formula](../solutions/math-geometry/pascals-triangle-element-formula.py)
