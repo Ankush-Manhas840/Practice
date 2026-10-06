@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="336" viewBox="0 0 880 336" role="img" aria-labelledby="t d">
 <title id="t">Problems logged per week</title>
-<desc id="d">Problems logged per week over 11 weeks: 41, 0, 43, 1, 1, 3, 0, 16, 14, 9, 5.</desc>
+<desc id="d">Problems logged per week over 11 weeks: 41, 0, 43, 1, 1, 3, 0, 16, 14, 9, 6.</desc>
 <defs>
 <style>
 text { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI Variable Display", "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif; }
@@ -51,8 +51,8 @@ text { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro
 <rect class="rise" style="animation-delay:450ms" x="705.1" y="228.6" width="39.9" height="23.4" rx="6" fill="url(#accv)"/>
 <text x="725.1" y="218.6" font-size="13" font-weight="650" fill="#1D1D1F" text-anchor="middle" letter-spacing="0.0em" class="num">9</text>
 <text x="725.1" y="278" font-size="12" font-weight="500" fill="#6E6E73" text-anchor="middle" letter-spacing="0.01em">Sep 28</text>
-<rect class="rise" style="animation-delay:500ms" x="776.4" y="239.0" width="39.9" height="13.0" rx="6" fill="url(#accv)"/>
-<text x="796.4" y="229.0" font-size="13" font-weight="650" fill="#1D1D1F" text-anchor="middle" letter-spacing="0.0em" class="num">5</text>
+<rect class="rise" style="animation-delay:500ms" x="776.4" y="236.4" width="39.9" height="15.6" rx="6" fill="url(#accv)"/>
+<text x="796.4" y="226.4" font-size="13" font-weight="650" fill="#1D1D1F" text-anchor="middle" letter-spacing="0.0em" class="num">6</text>
 <text x="796.4" y="278" font-size="12" font-weight="500" fill="#6E6E73" text-anchor="middle" letter-spacing="0.01em">Oct 5</text>
 <text x="48" y="310" font-size="12" font-weight="500" fill="#6E6E73" text-anchor="start" letter-spacing="0.01em">The first week includes 20 pattern-printing problems that were logged together.</text>
 </svg>

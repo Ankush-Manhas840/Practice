@@ -136,6 +136,13 @@ Every recursive function needs (1) a base case that returns without recursing an
 - Checked on `[]`, `[1]`, `[1,2]`, `[1,1]`, `[1,2,2]`, `[4,4,0]`: no missing or duplicate subsets.
 - Cleaned the whitespace before pushing (the logic is unchanged).
 
+**Combination Sum III** — [combination-sum-iii.py](../solutions/recursion/combination-sum-iii.py)
+- Find combinations of exactly `k` numbers from 1–9 that sum to `n`. Pick / not-pick again, but now there are three base cases: `len(curr) == k and sum == n` saves a combo; `i == len(arr)` when you've made a choice for all 9 numbers without getting k; `sum > n` as a prune (all numbers are positive).
+- The early return after checking the length keeps the base cases clean: if you have k numbers, you stop (and check the sum), else if you've gone past all 9 numbers, you stop (no combo), else if the sum is too big, prune. The order matters.
+- `arr = list(range(1, 10))` can replace the loop, just inline it: `checker(0, 0, [], list(range(1,10)))`.
+- Checked on k=1–4, n=1–15: exact match with all combinations of k numbers from 1–9 that sum to n.
+- Cleaned the whitespace before pushing (the logic is unchanged).
+
 ## Pascal's triangle
 
 **Element at row N, column c** — [row building](../solutions/math-geometry/pascals-triangle-element.py), [direct formula](../solutions/math-geometry/pascals-triangle-element-formula.py)
