@@ -123,6 +123,12 @@ Every recursive function needs (1) a base case that returns without recursing an
 - Speed: 100 numbers with target 30 finishes in about 0.01s here, since `sum > target` cuts almost every branch (all numbers are positive).
 - The usual alternative is a loop: `for k in range(i, n): if k > i and c[k] == c[k-1]: continue`, i.e. skip a number equal to the previous one *at the same level*. This is the form Subsets II uses, so learn both.
 
+**Subsets I (all subsets of distinct numbers)** — [subsets.py](../solutions/recursion/subsets.py)
+- Pick / not-pick again: for each number, decide whether to include it. Both branches move to `i+1`, because you can't use the same number twice. When all numbers are decided (`i == len(nums)`), save the current subset.
+- This is identical to Power Set from earlier. Your solution got it right from scratch on 2026-10-06, which means the pattern is solid.
+- Checked on `[]`, `[1]`, `[1,2]`, `[1,2,3]`: exact match with all 2^n combinations. The order of the output is not guaranteed to match any particular ordering.
+- Base case comes after the two recursive calls in your code, which works. Putting it first is the more usual habit.
+
 ## Pascal's triangle
 
 **Element at row N, column c** — [row building](../solutions/math-geometry/pascals-triangle-element.py), [direct formula](../solutions/math-geometry/pascals-triangle-element-formula.py)
