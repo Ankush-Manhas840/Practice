@@ -150,6 +150,13 @@ Every recursive function needs (1) a base case that returns without recursing an
 - Handles grids with repeated characters (e.g., a board of all 'A's). Each cell is visited at most once per search path due to the marking strategy.
 - Tested on 9 cases: simple linear paths, paths requiring backtracking, unreachable words, single-cell boards, circular paths (must not reuse cells), and grids with all identical characters. All passed.
 
+**N-Queens** — [n-queens.py](../solutions/recursion/n-queens.py)
+- Place N queens on an N×N board such that no two queens attack each other (same row, column, or diagonal). Backtracking: try each column in each row, check if safe, place, recurse to next row, unplace (backtrack).
+- Key optimization: fill row-by-row top-to-bottom, so conflict checks only need to look *up* (column above + upper-left and upper-right diagonals). Can't have conflicts down/left/right since no queens placed there yet. This halves the work vs checking all 8 directions.
+- Base case: when you've placed all N queens (row == n), convert the boolean grid to strings and save the solution.
+- `is_safe(row, col)` checks column, upper-left diagonal, upper-right diagonal. Three separate loops, one for each direction.
+- Verified: n=1 yields 1 solution, n=4 yields 2 solutions, n=8 yields 92 solutions. All correct.
+
 ## Pascal's triangle
 
 **Element at row N, column c** — [row building](../solutions/math-geometry/pascals-triangle-element.py), [direct formula](../solutions/math-geometry/pascals-triangle-element-formula.py)
