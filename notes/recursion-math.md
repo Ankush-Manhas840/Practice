@@ -143,6 +143,13 @@ Every recursive function needs (1) a base case that returns without recursing an
 - Checked on k=1–4, n=1–15: exact match with all combinations of k numbers from 1–9 that sum to n.
 - Cleaned the whitespace before pushing (the logic is unchanged).
 
+**Word Search** — [word-search.py](../solutions/recursion/word-search.py)
+- Find whether a word exists in a 2D grid by moving up/down/left/right (no diagonal). DFS backtracking with visited-cell marking.
+- Mark the starting cell as visited by setting it to 0 (a sentinel value no character equals). Recurse through all 4 directions (up, down, right, left). On each direction, check if the neighbor matches the next character in the word. If it does, mark the neighbor as visited and recurse with the next character index. After exploring all branches from that neighbor, restore the cell to its original character.
+- Base case: when the character index equals the word length, you've matched the entire word; set a nonlocal result flag to True and return. Early exits in the outer loop once result is True avoid unnecessary starting positions.
+- Handles grids with repeated characters (e.g., a board of all 'A's). Each cell is visited at most once per search path due to the marking strategy.
+- Tested on 9 cases: simple linear paths, paths requiring backtracking, unreachable words, single-cell boards, circular paths (must not reuse cells), and grids with all identical characters. All passed.
+
 ## Pascal's triangle
 
 **Element at row N, column c** — [row building](../solutions/math-geometry/pascals-triangle-element.py), [direct formula](../solutions/math-geometry/pascals-triangle-element-formula.py)
