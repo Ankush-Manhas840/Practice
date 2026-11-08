@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a1c2c">
+<title>Ankush Manhas — Player 1</title>
+<meta name="description" content="Ankush Manhas — machine learning engineer. Two deployed models and a real-time fraud detection system in progress.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  /* Sweetie 16 palette (public domain, by GrafxKid) — every colour on the page comes from these sixteen */
+  :root {
+    --k: #1a1c2c; --pur: #5d275d; --red: #b13e53; --org: #ef7d57; --yel: #ffcd75; --lim: #a7f070; --grn: #38b764; --tea: #257179;
+    --nav: #29366f; --blu: #3b5dc9; --sky: #41a6f6; --cya: #73eff7; --wht: #f4f4f4; --g1: #94b0c2; --g2: #566c86; --g3: #333c57;
+    --px: "Press Start 2P", monospace; --vt: "VT323", monospace;
+    --gut: 16px; --u: 4px;   /* one "pixel" of the UI grid */
+  }
+  @media (min-width: 760px) { :root { --gut: 32px; } }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body { background: var(--k); color: var(--wht); font-family: var(--vt); font-size: 1.35rem; line-height: 1.25; overflow-x: clip; -webkit-font-smoothing: none; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 var(--gut); position: relative; z-index: 2; }
+  h1, h2, h3, .px { font-family: var(--px); font-weight: 400; letter-spacing: 0; }
+
+  /* ---------- CRT: scanlines + vignette, can be switched off ---------- */
+  .crt::before { content: ""; position: fixed; inset: 0; z-index: 90; pointer-events: none;
+    background: repeating-linear-gradient(180deg, rgba(0,0,0,.22) 0 1px, transparent 1px 3px); mix-blend-mode: multiply; }
+  .crt::after { content: ""; position: fixed; inset: 0; z-index: 91; pointer-events: none; background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,.45) 100%); }
+
+  /* ---------- pixel box: the one panel used everywhere (hard 4px bevel, no radius, no blur) ---------- */
+  .box { position: relative; background: var(--nav); color: var(--wht);
+    box-shadow: 0 0 0 var(--u) var(--k), 0 0 0 calc(var(--u) * 2) var(--wht), 0 0 0 calc(var(--u) * 3) var(--k), calc(var(--u) * 3) calc(var(--u) * 3) 0 calc(var(--u) * 2) rgba(0,0,0,.5),
+                inset var(--u) var(--u) 0 var(--blu), inset calc(var(--u) * -1) calc(var(--u) * -1) 0 var(--g3); padding: 20px; }
+
+  /* ---------- HUD: score bar across the top ---------- */
+  .hud { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: var(--k); border-bottom: var(--u) solid var(--wht); }
+  .hud .wrap { display: flex; align-items: center; justify-content: space-between; gap: 10px; height: 52px; font-family: var(--px); font-size: .55rem; }
+  .hud .grp { display: flex; gap: 18px; align-items: center; }
+  .hud b { color: var(--yel); font-weight: 400; }
+  .hud nav { display: none; gap: 4px; }
+  @media (min-width: 820px) { .hud nav { display: flex; } }
+  .hud nav a { padding: 8px 10px; }
+  .hud nav a:hover, .hud nav a:focus-visible, .hud nav a.on { background: var(--wht); color: var(--k); outline: none; }
+  .hud nav a.on::before { content: "▶"; margin-right: 6px; }
+  .crt-btn { font-family: var(--px); font-size: .5rem; background: var(--k); color: var(--g1); border: 2px solid var(--g2); padding: 6px 8px; cursor: pointer; }
+  .crt-btn[aria-pressed="true"] { color: var(--lim); border-color: var(--lim); }
+  .coin { display: inline-block; width: 12px; height: 12px; background: var(--yel); box-shadow: inset -3px -3px 0 var(--org), inset 3px 3px 0 #fff3c4; animation: spin .8s steps(4) infinite; vertical-align: -2px; }
+  @keyframes spin { 25% { transform: scaleX(.6); } 50% { transform: scaleX(.15); } 75% { transform: scaleX(.6); } }
+
+  /* ---------- title screen ---------- */
+  .title { position: relative; min-height: 100svh; display: grid; place-items: center; text-align: center; overflow: hidden; padding: 90px 0 40px; }
+  #scene { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; z-index: 0; }
+  .logo { position: relative; z-index: 2; }
+  .logo .pre { font-family: var(--px); font-size: clamp(.55rem, 2vw, .8rem); color: var(--cya); letter-spacing: .1em; text-shadow: 3px 3px 0 var(--k); }
+  h1 { font-size: clamp(1.9rem, 8.5vw, 4.6rem); line-height: 1.15; margin: 22px 0 14px; color: var(--yel);
+    text-shadow: 4px 0 0 var(--org), 0 4px 0 var(--org), 4px 4px 0 var(--org), 8px 8px 0 var(--red), 12px 12px 0 var(--k); }
+  h1 span { display: block; }
+  h1 span + span { color: var(--wht); text-shadow: 4px 4px 0 var(--blu), 8px 8px 0 var(--nav), 12px 12px 0 var(--k); }
+  .logo .sub { font-family: var(--px); font-size: clamp(.55rem, 2.2vw, .85rem); color: var(--wht); text-shadow: 3px 3px 0 var(--k); margin-top: 18px; line-height: 2; }
+  .logo .sub i { font-style: normal; color: var(--lim); }
+  .start { display: inline-block; margin-top: 38px; font-family: var(--px); font-size: clamp(.75rem, 2.6vw, 1rem); color: var(--wht); background: none; border: 0; cursor: pointer; text-shadow: 3px 3px 0 var(--k); padding: 10px; }
+  .start span { animation: blink 1s steps(1) infinite; }
+  .start:hover span, .start:focus-visible span { animation: none; color: var(--yel); }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hint { position: absolute; z-index: 2; bottom: 18px; left: 0; right: 0; font-family: var(--px); font-size: .5rem; color: var(--g1); text-shadow: 2px 2px 0 var(--k); }
+  .copy { position: absolute; z-index: 2; bottom: 40px; left: 0; right: 0; font-family: var(--px); font-size: .5rem; color: var(--wht); text-shadow: 2px 2px 0 var(--k); }
+
+  /* ---------- sections ---------- */
+  section { padding: 90px 0; position: relative; }
+  section:nth-of-type(even) { background: var(--g3); }
+  section:nth-of-type(even)::before, section:nth-of-type(even)::after { content: ""; position: absolute; left: 0; right: 0; height: 12px; background:
+    linear-gradient(90deg, var(--k) 25%, transparent 25% 50%, var(--k) 50% 75%, transparent 75%) 0 0 / 24px 12px; }
+  section:nth-of-type(even)::before { top: 0; } section:nth-of-type(even)::after { bottom: 0; transform: scaleY(-1); }
+  .s-tag { font-family: var(--px); font-size: .6rem; color: var(--cya); margin-bottom: 14px; }
+  h2 { font-size: clamp(1.15rem, 4.6vw, 2rem); line-height: 1.35; color: var(--wht); text-shadow: 4px 4px 0 var(--k); margin-bottom: 30px; }
+  h2 em { font-style: normal; color: var(--yel); }
+
+  /* player card */
+  .player { display: grid; gap: 30px; }
+  @media (min-width: 860px) { .player { grid-template-columns: 300px 1fr; } }
+  .portrait { display: grid; place-items: center; background: var(--k); padding: 20px; }
+  .portrait canvas { width: 160px; height: 160px; image-rendering: pixelated; }
+  .pname { font-family: var(--px); font-size: .75rem; color: var(--yel); margin-top: 14px; text-align: center; line-height: 1.8; }
+  .rows div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 2px dashed var(--g2); }
+  .rows div:last-child { border: 0; }
+  .rows span:first-child { color: var(--g1); }
+  .rows b { font-weight: 400; color: var(--wht); text-align: right; }
+  .lbl { font-family: var(--px); font-size: .55rem; color: var(--g1); margin: 22px 0 12px; }
+  .inv { display: grid; grid-template-columns: repeat(auto-fill, minmax(116px, 1fr)); gap: 8px; }
+  .slot { background: var(--k); border: 2px solid var(--g2); padding: 8px 10px; font-size: 1.15rem; display: flex; gap: 8px; align-items: center; transition: none; }
+  .slot i { width: 12px; height: 12px; flex: none; background: var(--c, var(--sky)); box-shadow: inset -3px -3px 0 rgba(0,0,0,.35), inset 3px 3px 0 rgba(255,255,255,.35); }
+  .slot:hover { border-color: var(--yel); background: var(--nav); }
+
+  /* level select */
+  .levels { display: grid; gap: 34px; }
+  @media (min-width: 900px) { .levels { grid-template-columns: repeat(3, 1fr); } }
+  .level { display: flex; flex-direction: column; gap: 12px; transition: transform .12s steps(2); }
+  @media (hover: hover) { .level:hover { transform: translate(-4px, -4px); } }
+  .level .w { font-family: var(--px); font-size: .55rem; color: var(--cya); display: flex; justify-content: space-between; gap: 8px; }
+  .clear { color: var(--lim); } .wip { color: var(--org); animation: blink 1.2s steps(1) infinite; }
+  .level h3 { font-size: .85rem; line-height: 1.6; color: var(--yel); }
+  .level p { color: var(--g1); font-size: 1.2rem; }
+  .stars { font-family: var(--px); font-size: .8rem; color: var(--yel); letter-spacing: 4px; }
+  .stars s { text-decoration: none; color: var(--g2); }
+  .boss { background: var(--k); padding: 10px 12px; font-size: 1.15rem; border-left: 4px solid var(--red); }
+  .boss b { font-family: var(--px); font-size: .5rem; color: var(--red); font-weight: 400; display: block; margin-bottom: 6px; }
+  .boss.won { border-left-color: var(--lim); } .boss.won b { color: var(--lim); }
+  .xp .row { display: flex; justify-content: space-between; font-size: 1.1rem; color: var(--g1); }
+  /* a segmented pixel bar: each block is one tenth */
+  .bar { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; background: var(--k); padding: 3px; margin-top: 4px; }
+  .bar i { height: 10px; background: var(--g3); }
+  .bar i.on { background: var(--c, var(--lim)); box-shadow: inset 0 3px 0 rgba(255,255,255,.35); }
+  .level .go { margin-top: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* buttons: SNES-style, pressed = shifted down-right with the shadow gone */
+  .btn { display: inline-block; font-family: var(--px); font-size: .6rem; padding: 12px 14px; background: var(--red); color: var(--wht); border: 0; cursor: pointer;
+    box-shadow: inset -4px -4px 0 rgba(0,0,0,.35), inset 4px 4px 0 rgba(255,255,255,.25), 4px 4px 0 var(--k); }
+  .btn.b { background: var(--blu); } .btn.g { background: var(--grn); }
+  .btn:hover { filter: brightness(1.15); }
+  .btn:active { transform: translate(4px, 4px); box-shadow: inset -4px -4px 0 rgba(0,0,0,.35), inset 4px 4px 0 rgba(255,255,255,.25); }
+  .btn:focus-visible, .start:focus-visible, .crt-btn:focus-visible { outline: 3px dashed var(--yel); outline-offset: 4px; }
+
+  /* high scores */
+  .scores { display: grid; gap: 34px; }
+  @media (min-width: 900px) { .scores { grid-template-columns: 1fr 1fr; } }
+  table { width: 100%; border-collapse: collapse; font-size: 1.3rem; }
+  th { font-family: var(--px); font-size: .5rem; color: var(--cya); text-align: left; padding: 0 6px 12px; font-weight: 400; }
+  td { padding: 7px 6px; border-top: 2px dashed var(--g2); }
+  td:first-child { color: var(--yel); font-family: var(--px); font-size: .6rem; width: 44px; }
+  td.n { color: var(--lim); text-align: right; white-space: nowrap; }
+  tr.row-in td { animation: typein .4s steps(4) both; }
+  @keyframes typein { from { opacity: 0; transform: translateX(-12px); } }
+  .chart canvas { width: 100%; height: auto; image-rendering: pixelated; display: block; background: var(--k); }
+  .chart .cap { font-size: 1.1rem; color: var(--g1); margin-top: 10px; }
+
+  /* continue screen */
+  .cont { text-align: center; }
+  .cont .big { font-family: var(--px); font-size: clamp(1.4rem, 6vw, 2.6rem); color: var(--yel); text-shadow: 4px 4px 0 var(--red), 8px 8px 0 var(--k); line-height: 1.4; }
+  .cont .count { font-family: var(--px); font-size: clamp(2.4rem, 10vw, 4.4rem); color: var(--wht); text-shadow: 6px 6px 0 var(--k); margin: 18px 0; }
+  .cont p { color: var(--g1); max-width: 34em; margin: 0 auto 26px; }
+  .cont .go { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  footer { text-align: center; padding: 30px var(--gut) calc(30px + env(safe-area-inset-bottom)); font-family: var(--px); font-size: .5rem; color: var(--g2); line-height: 2; }
+
+  /* achievement toast */
+  .toast { position: fixed; z-index: 80; right: 16px; top: 68px; width: min(330px, calc(100% - 32px)); display: flex; gap: 12px; align-items: center; background: var(--k);
+    border: 4px solid var(--yel); box-shadow: 6px 6px 0 rgba(0,0,0,.6); padding: 10px 12px; transform: translateX(130%); }
+  .toast .tro { width: 32px; height: 32px; flex: none; image-rendering: pixelated; }
+  .toast b { display: block; font-family: var(--px); font-size: .5rem; color: var(--yel); font-weight: 400; margin-bottom: 6px; }
+  .toast span { font-size: 1.15rem; }
+
+  /* reveal: steps, not easing — things snap in like sprites */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .3s steps(3), transform .3s steps(3); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .start span, .wip, .coin { animation: none; }
+    tr.row-in td { animation: none; }
+  }
+</style>
+</head>
+<body class="crt">
+
+<div class="hud"><div class="wrap">
+  <div class="grp"><span>1P <b id="score">000000</b></span><span>HI <b id="hi">000000</b></span></div>
+  <nav aria-label="Sections">
+    <a href="#player">PLAYER</a><a href="#levels">LEVELS</a><a href="#scores">SCORES</a><a href="#continue">CONTACT</a>
+  </nav>
+  <div class="grp"><span><i class="coin" aria-hidden="true"></i> x<b id="coins">00</b></span><button class="crt-btn" id="crt" aria-pressed="true">CRT</button></div>
+</div></div>
+
+<header class="title" id="top">
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="logo">
+    <div class="pre">— A MACHINE LEARNING ADVENTURE —</div>
+    <h1 aria-label="Ankush Manhas"><span>ANKUSH</span><span>MANHAS</span></h1>
+    <div class="sub">CLASS: <i>ML ENGINEER</i> · ORIGIN: AMRITSAR<br>2 WORLDS CLEARED · 1 IN PROGRESS</div>
+    <button class="start" id="start"><span>▶ PRESS START</span></button>
+  </div>
+  <div class="copy">© 2026 ANKUSH MANHAS · B.TECH CS</div>
+  <div class="hint">↑ ↓ TO MOVE · ENTER TO START</div>
+</header>
+
+<section id="player">
+  <div class="wrap">
+    <div class="s-tag reveal">STAGE 1 — PLAYER SELECT</div>
+    <h2 class="reveal">The <em>player.</em></h2>
+    <div class="player">
+      <div class="box portrait reveal"><canvas id="avatar" width="32" height="32" aria-label="Pixel wolf badge"></canvas><div class="pname">ANKUSH<br>LV. FRESHER</div></div>
+      <div class="box reveal">
+        <div class="rows">
+          <div><span>CLASS</span><b>Machine learning engineer</b></div>
+          <div><span>GUILD</span><b>B.Tech CS · Chandigarh University · 2026</b></div>
+          <div><span>HOME</span><b>Amritsar, Punjab · will relocate</b></div>
+          <div><span>SPECIAL MOVE</span><b>Finds exactly where a model fails</b></div>
+          <div><span>STATUS</span><b style="color:var(--lim)">Ready for a party — open to ML and data roles</b></div>
+        </div>
+        <div class="lbl">INVENTORY</div>
+        <div class="inv">
+          <div class="slot"><i style="--c:var(--yel)"></i>Python</div><div class="slot"><i style="--c:var(--blu)"></i>pandas</div>
+          <div class="slot"><i style="--c:var(--sky)"></i>NumPy</div><div class="slot"><i style="--c:var(--org)"></i>scikit-learn</div>
+          <div class="slot"><i style="--c:var(--cya)"></i>SQL</div><div class="slot"><i style="--c:var(--blu)"></i>BigQuery</div>
+          <div class="slot"><i style="--c:var(--red)"></i>Streamlit</div><div class="slot"><i style="--c:var(--lim)"></i>Matplotlib</div>
+          <div class="slot"><i style="--c:var(--org)"></i>Jupyter</div><div class="slot"><i style="--c:var(--g1)"></i>Git</div>
+          <div class="slot"><i style="--c:var(--yel)"></i>Linux</div><div class="slot"><i style="--c:var(--red)"></i>Java</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="levels">
+  <div class="wrap">
+    <div class="s-tag reveal">STAGE 2 — WORLD MAP</div>
+    <h2 class="reveal">Select a <em>world.</em></h2>
+    <div class="levels">
+      <article class="box level reveal" data-ach="World 1 cleared: crop yield model deployed">
+        <div class="w"><span>WORLD 1</span><span class="clear">★ CLEAR</span></div>
+        <h3>CROP YIELD PREDICTION</h3>
+        <div class="stars">★★★</div>
+        <p>Predicts yield for rice, wheat, maize and sugarcane from Indian government data, 1997–2022.</p>
+        <div class="boss won"><b>BOSS DEFEATED</b>A silent 175× unit bug — some crops logged in nuts or bales, not tonnes.</div>
+        <div class="xp"><div class="row"><span>Error vs baseline</span><span>−98%</span></div><div class="bar" data-on="10" style="--c:var(--lim)"></div></div>
+        <div class="go"><a class="btn g" href="https://crop-yield-prediction-wpnuufdz2fc9tmbm4k8t3y.streamlit.app/" target="_blank" rel="noopener">PLAY DEMO</a><a class="btn b" href="https://github.com/Ankush-Manhas840/crop-yield-prediction" target="_blank" rel="noopener">CODE</a></div>
+      </article>
+      <article class="box level reveal" data-ach="World 2 cleared: car price model deployed">
+        <div class="w"><span>WORLD 2</span><span class="clear">★ CLEAR</span></div>
+        <h3>USED CAR PRICE</h3>
+        <div class="stars">★★★</div>
+        <p>Resale prices for everyday cars from 15,407 CarDekho listings, checked with 5-fold cross-validation.</p>
+        <div class="boss won"><b>BOSS DEFEATED</b>One ₹3.95 Cr supercar. Removing 9 rare-brand cars took R² from 0.72 to 0.94.</div>
+        <div class="xp"><div class="row"><span>R² on held-out test</span><span>0.94</span></div><div class="bar" data-on="9" style="--c:var(--sky)"></div></div>
+        <div class="go"><a class="btn g" href="https://usedcarchecker.streamlit.app" target="_blank" rel="noopener">PLAY DEMO</a><a class="btn b" href="https://github.com/Ankush-Manhas840/used-car-price-predictor" target="_blank" rel="noopener">CODE</a></div>
+      </article>
+      <article class="box level reveal" data-ach="World 3 unlocked: real-time fraud detection">
+        <div class="w"><span>WORLD 3</span><span class="wip">▶ IN PROGRESS</span></div>
+        <h3>REAL-TIME FRAUD DETECTION</h3>
+        <div class="stars">★<s>★★</s></div>
+        <p>Stream card transactions one at a time, build live per-card features, score each one. 24.4M transactions.</p>
+        <div class="boss"><b>CURRENT BOSS</b>Drift — online fraud fell from 66 to 0 per 10,000 after 2017. Next weapon: XGBoost.</div>
+        <div class="xp"><div class="row"><span>Data and EDA</span><span>100%</span></div><div class="bar" data-on="10" style="--c:var(--lim)"></div></div>
+        <div class="xp"><div class="row"><span>Models and tracking</span><span>40%</span></div><div class="bar" data-on="4" style="--c:var(--yel)"></div></div>
+        <div class="xp"><div class="row"><span>Streaming and Redis</span><span>10%</span></div><div class="bar" data-on="1" style="--c:var(--org)"></div></div>
+        <div class="go"><a class="btn" href="https://github.com/Ankush-Manhas840/fraud-detection-realtime" target="_blank" rel="noopener">WATCH THE BUILD</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="scores">
+  <div class="wrap">
+    <div class="s-tag reveal">STAGE 3 — RECORDS</div>
+    <h2 class="reveal">High <em>scores.</em></h2>
+    <div class="scores">
+      <div class="box reveal" id="table-box">
+        <table>
+          <thead><tr><th>RANK</th><th>RECORD</th><th style="text-align:right">SCORE</th></tr></thead>
+          <tbody>
+            <tr><td>1ST</td><td>Fraud alerts vs random guessing</td><td class="n">150 vs 1</td></tr>
+            <tr><td>2ND</td><td>Crop error cut by cleaning</td><td class="n">−83%</td></tr>
+            <tr><td>3RD</td><td>Car model held-out R²</td><td class="n">0.94</td></tr>
+            <tr><td>4TH</td><td>Frauds caught on unseen people</td><td class="n">142</td></tr>
+            <tr><td>5TH</td><td>Cross-validation folds passed</td><td class="n">5/5</td></tr>
+            <tr><td>6TH</td><td>Raw crop rows processed</td><td class="n">246,091</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="box chart reveal" id="chart-box">
+        <canvas id="chart" width="160" height="96" aria-label="Crop model error by stage: 107.63, 11.91, 2.04, 2.00"></canvas>
+        <div class="cap">CROP MODEL ERROR BY STAGE — 107.63 → 11.91 → 2.04 → 2.00 (log scale)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="continue">
+  <div class="wrap">
+    <div class="box cont reveal">
+      <div class="big">CONTINUE?</div>
+      <div class="count" id="count" aria-live="off">9</div>
+      <p>Insert a coin — or an interview. Open to machine learning and data roles, based in Amritsar and happy to relocate.</p>
+      <div class="go">
+        <a class="btn" href="mailto:ankushmanhas10736@gmail.com">▶ EMAIL</a>
+        <a class="btn b" href="https://linkedin.com/in/ankush-manhas840" target="_blank" rel="noopener">LINKEDIN</a>
+        <a class="btn g" href="https://github.com/Ankush-Manhas840" target="_blank" rel="noopener">GITHUB</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>THANK YOU FOR PLAYING<br>© <span id="yr"></span> ANKUSH MANHAS</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><canvas class="tro" id="trophy" width="16" height="16" aria-hidden="true"></canvas><div><b>ACHIEVEMENT UNLOCKED</b><span id="toast-t"></span></div></div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const C = { k: '#1a1c2c', pur: '#5d275d', red: '#b13e53', org: '#ef7d57', yel: '#ffcd75', lim: '#a7f070', grn: '#38b764', tea: '#257179', nav: '#29366f', blu: '#3b5dc9', sky: '#41a6f6', cya: '#73eff7', wht: '#f4f4f4', g1: '#94b0c2', g2: '#566c86', g3: '#333c57' };
+
+  /* ---------- title scene: a 16-bit dusk drawn at low resolution, scaled up with hard pixels ---------- */
+  (() => {
+    const cv = document.getElementById('scene'), x = cv.getContext('2d');
+    let W = 320, H = 180, t0 = performance.now(), stars = [];
+    function size() {
+      const r = cv.getBoundingClientRect();
+      H = 180; W = Math.max(200, Math.round(H * r.width / r.height));
+      cv.width = W; cv.height = H; x.imageSmoothingEnabled = false;
+      stars = Array.from({ length: Math.round(W / 4) }, (_, i) => ({ x: (i * 97) % W, y: (i * 53) % 70, p: i % 7 }));
+    }
+    size(); addEventListener('resize', size);
+    // dithered sky bands: two colours mixed in a checker where bands meet, the classic 16-bit gradient
+    const bands = [C.k, C.nav, C.pur, C.red, C.org];
+    const ridge = (o, amp, f, base, s) => i => base - Math.round(Math.abs(Math.sin((i + o) * f) * amp + Math.sin((i + o) * f * 2.7 + s) * amp * .4));
+    function draw(t) {
+      const s = (t - t0) / 1000;
+      const bh = Math.ceil(110 / bands.length);
+      for (let b = 0; b < bands.length; b++) {
+        x.fillStyle = bands[b]; x.fillRect(0, b * bh, W, bh);
+        if (b < bands.length - 1) { x.fillStyle = bands[b + 1]; for (let yy = b * bh + bh - 4; yy < b * bh + bh; yy++) for (let xx = (yy % 2); xx < W; xx += 2) x.fillRect(xx, yy, 1, 1); }
+      }
+      x.fillStyle = bands[bands.length - 1]; x.fillRect(0, 110, W, H - 110);
+      stars.forEach(st => { if ((Math.floor(s * 2) + st.p) % 7 !== 0) { x.fillStyle = st.p % 3 ? C.g1 : C.wht; x.fillRect(st.x, st.y, 1, 1); } });
+      // the sun, sliced by horizontal gaps
+      const sx = Math.round(W * .72), sy = 92, R = 26;
+      for (let yy = -R; yy <= R; yy++) {
+        if (yy > 4 && (yy % 5 === 0 || yy % 5 === 1)) continue;
+        const w = Math.round(Math.sqrt(R * R - yy * yy));
+        x.fillStyle = yy < -8 ? C.yel : yy < 6 ? C.org : C.red; x.fillRect(sx - w, sy + yy, w * 2, 1);
+      }
+      // three ridges, each scrolling at its own speed
+      const layers = [[ridge(s * 4, 18, .045, 120, 1), C.pur], [ridge(s * 10, 14, .07, 134, 2), C.nav], [ridge(s * 22, 9, .11, 150, 3), C.k]];
+      layers.forEach(([f, col]) => { x.fillStyle = col; for (let i = 0; i < W; i++) { const top = f(i); x.fillRect(i, top, 1, H - top); } });
+      // pixel trees on the nearest ridge
+      x.fillStyle = C.tea;
+      for (let i = 0; i < W + 40; i += 23) { const px = Math.round((i - (s * 22) % 23 + W) % (W + 23)) - 10, top = layers[2][0](px) - 1; x.fillRect(px, top - 10, 5, 10); x.fillRect(px - 2, top - 7, 9, 5); x.fillRect(px + 2, top, 1, 3); }
+      // a grid floor scrolling toward the viewer
+      x.fillStyle = C.k; x.fillRect(0, 156, W, H - 156);
+      x.fillStyle = C.pur;
+      for (let k = 0; k < 7; k++) { const p = ((k + (s * 1.4) % 1) / 7) ** 2, yy = 156 + Math.round(p * (H - 156)); x.fillRect(0, yy, W, 1); }
+      for (let k = -14; k <= 14; k++) { for (let yy = 156; yy < H; yy++) { const xx = Math.round(W / 2 + k * (yy - 150) * 1.6); if (xx >= 0 && xx < W) x.fillRect(xx, yy, 1, 1); } }
+      if (!calm) requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+
+  /* ---------- sprites: a wolf badge and a trophy, drawn pixel by pixel ---------- */
+  function sprite(id, rows, pal) {
+    const cv = document.getElementById(id), x = cv.getContext('2d'), n = cv.width / rows[0].length;
+    rows.forEach((r, y) => [...r].forEach((ch, i) => { if (ch !== '.') { x.fillStyle = pal[ch]; x.fillRect(i * n, y * n, n, n); } }));
+  }
+  sprite('avatar', [
+    '................',
+    '..k..........k..',
+    '.kok........kok.',
+    '.kook......kook.',
+    '.koook....koook.',
+    '.kooookkkkooook.',
+    '.koooooooooooook',
+    'kooowwoooowwoook',
+    'koowyykoowyykook',
+    'kooowwoooowwoook',
+    '.kooooowwoooook.',
+    '..kooowkkwoook..',
+    '...koowwwwook...',
+    '....kooowook....',
+    '.....kkookk.....',
+    '.......kk.......'], { k: C.k, o: C.g2, w: C.wht, y: C.yel });
+  sprite('trophy', [
+    '................',
+    '..yyyyyyyyyyyy..',
+    '.yywyyyyyyyyyoy.',
+    'y.ywyyyyyyyyyo.y',
+    'y.ywyyyyyyyyyo.y',
+    '.yywyyyyyyyyyoy.',
+    '...ywyyyyyyyo...',
+    '....yyyyyyyo....',
+    '.....yyyyyo.....',
+    '......yyyo......',
+    '......yyoo......',
+    '......yyoo......',
+    '....kkkkkkkk....',
+    '....kooooook....',
+    '....kkkkkkkk....',
+    '................'], { y: C.yel, w: '#fff3c4', o: C.org, k: C.k });
+
+  /* ---------- pixel chart: crop error by stage as stacked blocks ---------- */
+  function drawChart(prog) {
+    const cv = document.getElementById('chart'), x = cv.getContext('2d'), W = cv.width, H = cv.height;
+    x.fillStyle = C.k; x.fillRect(0, 0, W, H);
+    x.fillStyle = C.g3; for (let yy = 10; yy < H - 14; yy += 12) for (let xx = 4; xx < W; xx += 4) x.fillRect(xx, yy, 2, 1);
+    const vals = [107.63, 11.91, 2.04, 2.00], cols = [C.red, C.org, C.yel, C.lim];
+    vals.forEach((v, i) => {
+      const full = Math.max(2, Math.round(Math.log10(v * 10) / Math.log10(1200) * (H - 26)));
+      const h = Math.round(full * Math.min(1, Math.max(0, prog * 4 - i * .6)));
+      const bx = 14 + i * 36, base = H - 14;
+      for (let yy = 0; yy < h; yy += 4) { x.fillStyle = cols[i]; x.fillRect(bx, base - yy - 3, 24, 3); }
+      x.fillStyle = 'rgba(255,255,255,.35)'; if (h) x.fillRect(bx, base - h + 1, 3, h - 1);
+    });
+  }
+  drawChart(calm ? 1 : 0);
+  function playChart() { if (calm) return drawChart(1); const t0 = performance.now(); (function f(t) { const p = Math.min(1, (t - t0) / 1400); drawChart(Math.floor(p * 16) / 16 * 1.6); if (p < 1) requestAnimationFrame(f); })(t0); }
+
+  /* ---------- reveal, segmented bars, score table, achievements ---------- */
+  const toast = document.getElementById('toast'), toastT = document.getElementById('toast-t'), queue = [];
+  let showing = false;
+  function achieve(text) { queue.push(text); if (!showing) nextToast(); }
+  function nextToast() {
+    const t = queue.shift(); if (!t) { showing = false; return; } showing = true; toastT.textContent = t;
+    if (calm) { toast.style.transform = 'none'; setTimeout(() => { toast.style.transform = ''; nextToast(); }, 2600); return; }
+    // slides in on stepped frames, holds, slides out
+    toast.animate([{ transform: 'translateX(130%)' }, { transform: 'translateX(0)' }], { duration: 336, easing: 'steps(6)' }).onfinish = () => {
+      toast.style.transform = 'translateX(0)';
+      setTimeout(() => toast.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(130%)' }], { duration: 336, easing: 'steps(6)' }).onfinish = () => { toast.style.transform = ''; nextToast(); }, 2100);
+    };
+  }
+  document.querySelectorAll('.bar').forEach(b => { b.innerHTML = '<i></i>'.repeat(10); });
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target; el.classList.add('in'); io.unobserve(el);
+    el.querySelectorAll('.bar').forEach(b => { const n = +b.dataset.on; [...b.children].forEach((c, i) => setTimeout(() => c.classList.toggle('on', i < n), calm ? 0 : 200 + i * 70)); });
+    if (el.id === 'table-box') el.querySelectorAll('tbody tr').forEach((r, i) => { r.classList.add('row-in'); r.querySelectorAll('td').forEach(td => td.style.animationDelay = i * .12 + 's'); });
+    if (el.id === 'chart-box') playChart();
+    if (el.dataset.ach) { coins(3); achieve(el.dataset.ach); }
+  }), { threshold: .2 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ---------- score = how far you've scrolled; coins for every world you open ---------- */
+  const sc = document.getElementById('score'), hi = document.getElementById('hi'), cn = document.getElementById('coins');
+  let best = 0, coinN = 0;
+  try { best = +localStorage.getItem('retro-hi') || 0; } catch (e) {}
+  hi.textContent = String(best).padStart(6, '0');
+  function coins(n) { coinN = Math.min(99, coinN + n); cn.textContent = String(coinN).padStart(2, '0'); }
+  let q = 0;
+  addEventListener('scroll', () => { if (q) return; q = 1; requestAnimationFrame(() => {
+    q = 0; const max = document.documentElement.scrollHeight - innerHeight, v = Math.round((max > 0 ? scrollY / max : 0) * 999) * 10 + coinN * 100;
+    sc.textContent = String(v).padStart(6, '0');
+    if (v > best) { best = v; hi.textContent = sc.textContent; try { localStorage.setItem('retro-hi', best); } catch (e) {} }
+    // highlight the stage you're in
+    let cur = ''; document.querySelectorAll('section[id]').forEach(s => { if (scrollY >= s.offsetTop - 140) cur = s.id; });
+    document.querySelectorAll('.hud nav a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur));
+  }); }, { passive: true });
+
+  /* ---------- controls: start button, arrow keys between stages, CRT toggle ---------- */
+  const stages = ['top', 'player', 'levels', 'scores', 'continue'].map(id => document.getElementById(id));
+  const go = i => stages[Math.max(0, Math.min(stages.length - 1, i))].scrollIntoView({ behavior: calm ? 'auto' : 'smooth' });
+  const here = () => { let k = 0; stages.forEach((s, i) => { if (s.offsetTop - 160 <= scrollY) k = i; }); return k; };
+  document.getElementById('start').addEventListener('click', () => { go(1); coins(1); achieve('Game started — welcome, recruiter'); });
+  addEventListener('keydown', e => {
+    if (e.target.closest('a, button, input, textarea')) { if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return; }
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); go(here() + 1); }
+    else if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); go(here() - 1); }
+    else if (e.key === 'Enter' && here() === 0) { e.preventDefault(); document.getElementById('start').click(); }
+  });
+  const crt = document.getElementById('crt');
+  try { if (localStorage.getItem('retro-crt') === 'off') { document.body.classList.remove('crt'); crt.setAttribute('aria-pressed', 'false'); } } catch (e) {}
+  crt.addEventListener('click', () => { const on = document.body.classList.toggle('crt'); crt.setAttribute('aria-pressed', on); try { localStorage.setItem('retro-crt', on ? 'on' : 'off'); } catch (e) {} });
+
+  /* ---------- CONTINUE? countdown: 9 to 0, then starts over ---------- */
+  (() => {
+    const el = document.getElementById('count'); if (calm) return;
+    let n = 9; setInterval(() => { n = n ? n - 1 : 9; el.textContent = n; el.animate([{ transform: 'scale(1.25)' }, { transform: 'scale(1)' }], { duration: 240, easing: 'steps(3)' }); }, 1000);
+  })();
+</script>
+</body>
+</html>
